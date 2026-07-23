@@ -1,0 +1,21 @@
+{
+  "name": "inventory-control",
+  "version": "1.0.0",
+  "description": "Fastener inventory & manufacturing control system — multi-warehouse stock, BOM engine, cut-to-length manufacturing, zero negative stock, live multi-user sync.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "seed": "node scripts/seed.js",
+    "rebuild-levels": "node -e \"require('./server/ledger').rebuild(); console.log('rebuilt')\""
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.19.2",
+    "pdfjs-dist": "^3.11.174",
+    "socket.io": "^4.7.5",
+    "xlsx": "^0.18.5"
+  }
+}
