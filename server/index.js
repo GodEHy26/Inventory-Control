@@ -7,6 +7,7 @@ const ledger = require('./ledger');
 const bom = require('./bom');
 const mfg = require('./manufacturing');
 const imports = require('./imports');
+const guard = require('./guard');
 
 const app = express();
 const server = http.createServer(app);
@@ -142,6 +143,7 @@ app.get('/api/bootstrap', (req, res) => {
       openSO: db.prepare("SELECT COUNT(*) c FROM sales_orders WHERE status IN ('draft','confirmed','partial')").get().c,
       openPO: db.prepare("SELECT COUNT(*) c FROM purchase_orders WHERE status IN ('ordered','in_transit','partial')").get().c,
       flags: dataFlags().length,
+      importsToReview: db.prepare("SELECT COUNT(*) c FROM import_batches WHERE status='staged'").get().c,
     },
   });
 });
@@ -223,15 +225,34 @@ app.post('/api/bom/:sku', requireAuth, can('items'), (req, res) => {
 });
 
 // ---------- direct stock movements ----------
+// v2: v1 used Math.abs(qty), so a typed "-500" with direction "up" became
+// +500 without a word. Now the sign must be given by the direction, a reason
+// is required (adjustments are the one place a person rewrites stock by
+// hand), and an unusually large count-up asks for confirmation first.
 app.post('/api/txn/adjust', requireAuth, can('adjust'), (req, res) => {
-  const { sku, wh, qty, direction, ref, reason, heat_no } = req.body;
+  const { sku, wh, direction, ref, reason, heat_no, confirm } = req.body;
+  const qty = Number(req.body.qty);
+  if (!Number.isFinite(qty) || qty <= 0)
+    return res.status(400).json({ error: 'Quantity must be a positive number — choose "count down" to remove stock.' });
+  if (!['up', 'down'].includes(direction)) return res.status(400).json({ error: 'Direction must be up or down.' });
+  if (!reason || String(reason).trim().length < 3) return res.status(400).json({ error: 'Give a reason for the adjustment (it goes on the audit trail).' });
+  if (!itemBySku.get(sku)) return res.status(400).json({ error: `Unknown SKU ${sku}` });
+  if (direction === 'up' && !confirm) {
+    const v = guard.validateManual('stock', [{ sku, qty }]);
+    const lvl = ledger.level(sku, wh);
+    const big = lvl.on_hand > 0 && qty >= 10 * lvl.on_hand;
+    const warns = v.warns.concat(big ? [{ code: 'ADJUST_LARGE', severity: 'warn',
+      msg: `Counting up ${qty.toLocaleString('en-US')} would multiply current stock (${lvl.on_hand.toLocaleString('en-US')}) by ${Math.round((lvl.on_hand + qty) / lvl.on_hand)}×.` }] : []);
+    if (warns.length) return res.status(409).json({ needs_confirm: true, warnings: warns,
+      error: 'This adjustment looks unusual — check it, then confirm.' });
+  }
   const tx = db.transaction(() => {
-    const group = ledger.post([{ type: 'ADJUST', sku, wh, qty: Math.abs(qty),
-      d_on_hand: direction === 'down' ? -Math.abs(qty) : Math.abs(qty),
-      ref, meta: { reason, heat_no: heat_no || null } }], req.user.username);
+    const group = ledger.post([{ type: 'ADJUST', sku, wh, qty,
+      d_on_hand: direction === 'down' ? -qty : qty,
+      ref, meta: { reason: String(reason).trim(), heat_no: heat_no || null, confirmed_warning: !!confirm } }], req.user.username);
     if (direction !== 'down' && heat_no) {
       db.prepare('INSERT INTO lots (sku, warehouse_id, qty, heat_no, origin_txn) VALUES (?,?,?,?,?)')
-        .run(sku, wh, Math.abs(qty), heat_no, group);
+        .run(sku, wh, qty, heat_no, group);
     }
   });
   try { tx(); } catch (e) { return res.status(400).json({ error: e.message }); }
@@ -288,8 +309,11 @@ app.get('/api/so', requireAuth, (req, res) => {
   res.json(db.prepare('SELECT * FROM sales_orders ORDER BY id DESC LIMIT 200').all().map(soWithLines));
 });
 app.post('/api/so', requireAuth, can('so'), (req, res) => {
-  const { customer, ref, required_date, note, lines } = req.body;
+  const { customer, ref, required_date, note, lines, confirm } = req.body;
   if (!customer || !lines?.length) return res.status(400).json({ error: 'Customer and at least one line are required' });
+  const check = guard.validateManual('so', lines, { ref, party: customer });
+  if (check.blocks.length) return res.status(400).json({ error: check.blocks.map(b => (b.line ? `Line ${b.line}: ` : '') + b.msg).join(' '), issues: check.blocks });
+  if (check.warns.length && !confirm) return res.status(409).json({ needs_confirm: true, warnings: check.warns, error: 'Some lines look unusual — check them, then confirm.' });
   const tx = db.transaction(() => {
     const r = db.prepare(`INSERT INTO sales_orders (customer, ref, required_date, note, created_by)
       VALUES (?,?,?,?,?)`).run(customer, ref || null, required_date || null, note || null, req.user.username);
@@ -448,21 +472,9 @@ app.post('/api/so/:id/ship', requireAuth, can('ship'), (req, res) => {
   res.json({ ok: true });
 });
 app.post('/api/so/:id/cancel', requireAuth, can('so'), (req, res) => {
-  const so = db.prepare('SELECT * FROM sales_orders WHERE id=?').get(req.params.id);
-  if (!so || so.status === 'shipped') return res.status(400).json({ error: 'Cannot cancel' });
-  const tx = db.transaction(() => {
-    const held = db.prepare(`
-      SELECT sku, warehouse_id wh, SUM(d_on_hold) held FROM transactions
-      WHERE ref=? GROUP BY sku, warehouse_id HAVING held > 0`).all(`SO-${so.id}`);
-    for (const h of held) {
-      ledger.post([{ type: 'RELEASE', sku: h.sku, wh: h.wh, qty: h.held,
-        d_on_hold: -h.held, ref: `SO-${so.id}` }], req.user.username);
-    }
-    db.prepare("UPDATE sales_orders SET status='cancelled' WHERE id=?").run(so.id);
-    db.prepare("UPDATE so_lines SET mode='cancelled' WHERE so_id=?").run(so.id);
-  });
-  try { tx(); } catch (e) { return res.status(400).json({ error: e.message }); }
-  broadcast(['so', 'stock'], `Sales order #${so.id} cancelled — reservations released`, req.user.username);
+  try { guard.cancelSo(+req.params.id, req.user.username); }
+  catch (e) { return res.status(e.status || 400).json({ error: e.message }); }
+  broadcast(['so', 'stock'], `Sales order #${req.params.id} cancelled — reservations released`, req.user.username);
   res.json({ ok: true });
 });
 
@@ -483,8 +495,11 @@ app.get('/api/po/:id', requireAuth, (req, res) => {
   res.json(poWithLines(p));
 });
 app.post('/api/po', requireAuth, can('po'), (req, res) => {
-  const { supplier, ref, eta, warehouse_id = 'WH-MAIN', status = 'ordered', note, lines } = req.body;
+  const { supplier, ref, eta, warehouse_id = 'WH-MAIN', status = 'ordered', note, lines, confirm } = req.body;
   if (!lines?.length) return res.status(400).json({ error: 'At least one line is required' });
+  const check = guard.validateManual('po', lines, { ref, party: supplier });
+  if (check.blocks.length) return res.status(400).json({ error: check.blocks.map(b => (b.line ? `Line ${b.line}: ` : '') + b.msg).join(' '), issues: check.blocks });
+  if (check.warns.length && !confirm) return res.status(409).json({ needs_confirm: true, warnings: check.warns, error: 'Some lines look unusual — check them, then confirm.' });
   const tx = db.transaction(() => {
     const r = db.prepare(`INSERT INTO purchase_orders (supplier, ref, eta, status, warehouse_id, note, created_by)
       VALUES (?,?,?,?,?,?,?)`).run(supplier || '', ref || '', eta || null, status, warehouse_id, note || null, req.user.username);
@@ -575,6 +590,15 @@ function updatePoStatus(poId) {
   db.prepare('UPDATE purchase_orders SET status=? WHERE id=?').run(status, poId);
 }
 
+// v2: v1 had a 'cancelled' status but no way to reach it, so a wrong PO
+// could only be "fixed" by receiving it or leaving phantom on-order stock.
+app.post('/api/po/:id/cancel', requireAuth, can('po'), (req, res) => {
+  try { guard.cancelPo(+req.params.id, req.user.username, req.body?.reason); }
+  catch (e) { return res.status(e.status || 400).json({ error: e.message }); }
+  broadcast(['po', 'stock'], `PO #${req.params.id} cancelled — on-order released`, req.user.username);
+  res.json({ ok: true });
+});
+
 // ---------- file imports & templates ----------
 app.get('/api/template/:kind', requireAuth, (req, res) => {
   const t = imports.template(req.params.kind, req.query.fmt === 'xlsx' ? 'xlsx' : 'csv');
@@ -583,134 +607,59 @@ app.get('/api/template/:kind', requireAuth, (req, res) => {
   res.setHeader('Content-Disposition', `attachment; filename="${t.filename}"`);
   res.send(t.buf);
 });
-// kind: items | stock | so | po. File as base64.
+// v2 Import Guard. Every file is staged and checked first. A clean file
+// (every line OK, no document-level warnings) commits immediately, exactly
+// like v1. Anything else comes back as a batch to review.
+const BROADCAST_AREAS = { items: ['items', 'stock'], stock: ['stock'], so: ['so'], po: ['po', 'stock'] };
 app.post('/api/import/file', requireAuth, can('import'), async (req, res) => {
   const { kind, filename, data_b64, options = {} } = req.body || {};
   if (!filename || !data_b64) return res.status(400).json({ error: 'No file received' });
-  let parsed;
-  try { parsed = await imports.parseFile(filename, data_b64); }
-  catch (e) { return res.status(400).json({ error: 'Could not read file: ' + e.message }); }
-  const { rows, note } = parsed;
-  if (!rows.length) return res.status(400).json({ error: note || 'No data rows found in the file.' });
-  const issues = [];
-  const user = req.user.username;
+  let id;
+  try { id = await guard.stage({ kind, filename, data_b64, options, user: req.user.username }); }
+  catch (e) { return res.status(e.status || 400).json({ error: 'Could not read file: ' + e.message }); }
+  let v = guard.view(id);
+  if (!v.lines.length) {
+    guard.discard(id, req.user.username);
+    return res.status(400).json({ error: v.batch.note || 'No data rows found in the file.', batch_id: id });
+  }
+  if (v.clean && options.review !== true) {
+    try { v = guard.commit(id, req.user.username); }
+    catch (e) { return res.status(e.status || 400).json({ error: e.message, batch_id: id }); }
+    broadcast(BROADCAST_AREAS[kind] || ['stock'], `Import ${filename}: ${v.lines.length} lines checked and committed`, req.user.username);
+    return res.json({ ok: true, committed: true, batch_id: id, counts: v.counts, result: v.batch.result, note: v.batch.note });
+  }
+  broadcast(['imports'], `Import ${filename} staged for review (${v.counts.block} blocked, ${v.counts.warn} to check)`, req.user.username);
+  res.json({ ok: true, committed: false, batch_id: id, counts: v.counts, note: v.batch.note });
+});
+app.get('/api/import/batches', requireAuth, (req, res) => res.json(guard.list(+req.query.limit || 50)));
+app.get('/api/import/batch/:id', requireAuth, (req, res) => {
+  try { res.json(guard.view(+req.params.id)); } catch (e) { res.status(e.status || 400).json({ error: e.message }); }
+});
+app.post('/api/import/batch/:id/line/:lid', requireAuth, can('import'), (req, res) => {
+  try { res.json(guard.decide(+req.params.id, +req.params.lid, req.body || {}, req.user.username, req.user.role)); }
+  catch (e) { res.status(e.status || 400).json({ error: e.message }); }
+});
+app.post('/api/import/batch/:id/override', requireAuth, can('import'), (req, res) => {
+  try { res.json(guard.overrideBatch(+req.params.id, req.body?.note, req.user.username, req.user.role)); }
+  catch (e) { res.status(e.status || 400).json({ error: e.message }); }
+});
+app.post('/api/import/batch/:id/commit', requireAuth, can('import'), (req, res) => {
   try {
-    if (kind === 'items') {
-      let created = 0, updated = 0, stocked = 0;
-      const tx = db.transaction(() => {
-        for (const r of rows) {
-          if (!r.sku) { issues.push(`Row skipped (no SKU): ${r.name || ''}`); continue; }
-          const exists = itemBySku.get(r.sku);
-          db.prepare(`INSERT INTO items (sku, name, item_type, category, size, uom, unit_weight, min_stock)
-            VALUES (@sku,@name,@item_type,@category,@size,@uom,@unit_weight,@min_stock)
-            ON CONFLICT(sku) DO UPDATE SET
-              name=COALESCE(NULLIF(@name,''), name),
-              unit_weight=CASE WHEN @unit_weight>0 THEN @unit_weight ELSE unit_weight END,
-              size=COALESCE(NULLIF(@size,''), size)`)
-            .run({ sku: r.sku, name: r.name || r.sku,
-              item_type: ['part', 'assembly', 'raw'].includes((r.item_type || '').toLowerCase()) ? r.item_type.toLowerCase() : 'part',
-              category: r.category || '', size: r.size || '', uom: r.uom || 'pcs',
-              unit_weight: r.weight || 0, min_stock: parseFloat(r.min_stock) || 0 });
-          exists ? updated++ : created++;
-          if (r.qty > 0) {
-            const wh = r.warehouse || 'WH-MAIN';
-            const g = ledger.post([{ type: 'STOCK_IN', sku: r.sku, wh, qty: r.qty,
-              d_on_hand: r.qty, ref: options.ref || `IMPORT-${filename}`, meta: { heat_no: r.heat || null } }], user);
-            if (r.heat) db.prepare('INSERT INTO lots (sku, warehouse_id, qty, heat_no, origin_txn) VALUES (?,?,?,?,?)')
-              .run(r.sku, wh, r.qty, r.heat, g);
-            stocked++;
-          }
-        }
-      });
-      tx();
-      broadcast(['items', 'stock'], `Item import: ${created} new, ${updated} updated`, user);
-      return res.json({ ok: true, created, updated, stocked, issues, note });
-    }
-    if (kind === 'stock') {
-      let count = 0;
-      const tx = db.transaction(() => {
-        for (const r of rows) {
-          if (!r.sku || !(r.qty > 0)) { issues.push(`Row skipped: ${r.sku || '(no sku)'}`); continue; }
-          if (!itemBySku.get(r.sku)) {
-            if (options.autocreate) db.prepare("INSERT INTO items (sku,name,item_type) VALUES (?,?, 'part')").run(r.sku, r.name || r.sku);
-            else { issues.push(`Unknown SKU (not created): ${r.sku}`); continue; }
-          }
-          const wh = r.warehouse || 'WH-MAIN';
-          const g = ledger.post([{ type: 'STOCK_IN', sku: r.sku, wh, qty: r.qty,
-            d_on_hand: r.qty, ref: options.ref || `IMPORT-${filename}`, meta: { heat_no: r.heat || null } }], user);
-          if (r.heat) db.prepare('INSERT INTO lots (sku, warehouse_id, qty, heat_no, origin_txn) VALUES (?,?,?,?,?)')
-            .run(r.sku, wh, r.qty, r.heat, g);
-          count++;
-        }
-      });
-      tx();
-      broadcast(['stock'], `Stock import: ${count} lines added`, user);
-      return res.json({ ok: true, count, issues, note });
-    }
-    if (kind === 'so') {
-      const valid = [];
-      for (const r of rows) {
-        if (!r.sku || !(r.qty > 0)) { issues.push(`Row skipped: ${r.sku || '(no sku)'}`); continue; }
-        if (!itemBySku.get(r.sku)) {
-          if (options.autocreate) db.prepare("INSERT INTO items (sku,name,item_type) VALUES (?,?, 'part')").run(r.sku, r.name || r.sku);
-          else { issues.push(`Unknown SKU: ${r.sku}`); continue; }
-        }
-        valid.push(r);
-      }
-      if (!valid.length) return res.status(400).json({ error: 'No usable lines. ' + issues.slice(0, 5).join(' | '), issues });
-      const customer = options.customer || valid[0].customer || 'Imported customer';
-      const ref = options.ref || valid[0].ref || filename;
-      const tx = db.transaction(() => {
-        const r = db.prepare(`INSERT INTO sales_orders (customer, ref, required_date, note, created_by)
-          VALUES (?,?,?,?,?)`).run(customer, ref, options.required_date || valid[0].eta || null,
-            `Imported from ${filename}`, user);
-        for (const v of valid) {
-          db.prepare('INSERT INTO so_lines (so_id, sku, qty, warehouse_id) VALUES (?,?,?,?)')
-            .run(r.lastInsertRowid, v.sku, v.qty, v.warehouse || bestWarehouse(v.sku));
-        }
-        return r.lastInsertRowid;
-      });
-      const id = tx();
-      broadcast(['so'], `Sales order #${id} imported from ${filename}`, user);
-      return res.json({ ok: true, id, lines: valid.length, issues, note,
-        hint: 'Draft created — open it and press Confirm to reserve the stock.' });
-    }
-    if (kind === 'po') {
-      const valid = [];
-      for (const r of rows) {
-        if (!r.sku || !(r.qty > 0)) { issues.push(`Row skipped: ${r.sku || '(no sku)'}`); continue; }
-        if (!itemBySku.get(r.sku)) {
-          if (options.autocreate) db.prepare("INSERT INTO items (sku,name,item_type) VALUES (?,?, 'part')").run(r.sku, r.name || r.sku);
-          else { issues.push(`Unknown SKU: ${r.sku}`); continue; }
-        }
-        valid.push(r);
-      }
-      if (!valid.length) return res.status(400).json({ error: 'No usable lines. ' + issues.slice(0, 5).join(' | '), issues });
-      const status = options.status === 'in_transit' ? 'in_transit' : 'ordered';
-      const tx = db.transaction(() => {
-        const r = db.prepare(`INSERT INTO purchase_orders (supplier, ref, eta, status, warehouse_id, note, created_by)
-          VALUES (?,?,?,?,?,?,?)`)
-          .run(options.supplier || valid[0].supplier || '', options.ref || valid[0].ref || filename,
-            options.eta || valid[0].eta || null, status, options.warehouse_id || 'WH-MAIN',
-            `Imported from ${filename}`, user);
-        const id = r.lastInsertRowid;
-        for (const v of valid) {
-          db.prepare('INSERT INTO po_lines (po_id, sku, qty, in_transit_qty, heat_no) VALUES (?,?,?,?,?)')
-            .run(id, v.sku, v.qty, status === 'in_transit' ? v.qty : 0, v.heat || null);
-          ledger.post([{ type: status === 'in_transit' ? 'SHIPMENT_BOOKED' : 'PO_PLACED',
-            sku: v.sku, wh: options.warehouse_id || 'WH-MAIN', qty: v.qty,
-            d_on_order: status === 'in_transit' ? 0 : v.qty,
-            d_in_transit: status === 'in_transit' ? v.qty : 0,
-            ref: options.ref || valid[0].ref || filename, counterparty: options.supplier || '' }], user);
-        }
-        return id;
-      });
-      const id = tx();
-      broadcast(['po', 'stock'], `Purchase order #${id} imported from ${filename}`, user);
-      return res.json({ ok: true, id, lines: valid.length, issues, note });
-    }
-    return res.status(400).json({ error: 'Unknown import kind' });
-  } catch (e) { return res.status(400).json({ error: e.message, issues }); }
+    const v = guard.commit(+req.params.id, req.user.username, { acknowledge: !!req.body?.acknowledge });
+    broadcast(BROADCAST_AREAS[v.batch.kind] || ['stock'], `Import batch #${v.batch.id} reviewed and committed`, req.user.username);
+    res.json(v);
+  } catch (e) { res.status(e.status || 400).json({ error: e.message }); }
+});
+app.post('/api/import/batch/:id/discard', requireAuth, can('import'), (req, res) => {
+  try { res.json(guard.discard(+req.params.id, req.user.username)); }
+  catch (e) { res.status(e.status || 400).json({ error: e.message }); }
+});
+app.post('/api/import/batch/:id/undo', requireAuth, can('import'), (req, res) => {
+  try {
+    const v = guard.undo(+req.params.id, req.user.username);
+    broadcast(['so', 'po', 'stock'], `Import batch #${v.batch.id} undone`, req.user.username);
+    res.json(v);
+  } catch (e) { res.status(e.status || 400).json({ error: e.message }); }
 });
 
 // ---------- data-quality flags ----------
@@ -737,6 +686,9 @@ function dataFlags() {
   const noW = db.prepare(`SELECT COUNT(*) c FROM items WHERE active=1 AND (unit_weight IS NULL OR unit_weight=0)`).get().c;
   if (noW > 0) flags.push({ kind: 'missing-weight', sku: null,
     text: `${noW} active items have no unit weight — shipment weight totals will undercount until filled in.` });
+  const staged = db.prepare("SELECT COUNT(*) c FROM import_batches WHERE status='staged'").get().c;
+  if (staged > 0) flags.unshift({ kind: 'import-review', sku: null,
+    text: `${staged} imported file(s) are waiting for review — nothing from them is in stock figures yet (Imports tab).` });
   return flags;
 }
 app.get('/api/reports/flags', requireAuth, (req, res) => res.json(dataFlags()));
@@ -798,9 +750,11 @@ app.post('/api/admin/rebuild', requireAuth, can('*'), (req, res) => {
 });
 
 app.use((err, req, res, next) => {
+  if (err.status && err.status < 500) return res.status(err.status).json({ error: err.message });
   console.error(err);
   res.status(500).json({ error: 'Something went wrong on the server. Check logs.' });
 });
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => console.log(`Inventory Control running on http://localhost:${PORT}`));
+if (require.main === module) server.listen(PORT, () => console.log(`Inventory Control v2 running on http://localhost:${PORT}`));
+module.exports = { app, server };
