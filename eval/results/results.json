@@ -1,0 +1,977 @@
+{
+  "generated": "2026-10-28T13:26:12.222Z",
+  "config": {
+    "rate": 0.2,
+    "euShare": 0.2,
+    "dupShare": 0.15,
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "documents": 34,
+    "lines": 351
+  },
+  "formats": {
+    "csv-min": {
+      "label": "CSV, quantity only",
+      "v1": {
+        "correct": 1403,
+        "caught": 111,
+        "silent": 587,
+        "false_alarm": 0,
+        "held_with_doc": 0,
+        "n": 2101
+      },
+      "v2": {
+        "correct": 1321,
+        "caught": 299,
+        "silent": 54,
+        "false_alarm": 77,
+        "held_with_doc": 5,
+        "n": 1756
+      },
+      "docs": {
+        "total": 201,
+        "auto": 41,
+        "clean": 45,
+        "cleanAuto": 36
+      },
+      "v1WrongUnits": 698,
+      "v2WrongUnits": 136,
+      "euV1Silent": 52
+    },
+    "csv-full": {
+      "label": "CSV with price, amount, weight",
+      "v1": {
+        "correct": 1403,
+        "caught": 111,
+        "silent": 587,
+        "false_alarm": 0,
+        "held_with_doc": 0,
+        "n": 2101
+      },
+      "v2": {
+        "correct": 1391,
+        "caught": 351,
+        "silent": 2,
+        "false_alarm": 12,
+        "held_with_doc": 0,
+        "n": 1756
+      },
+      "docs": {
+        "total": 201,
+        "auto": 44,
+        "clean": 45,
+        "cleanAuto": 43
+      },
+      "v1WrongUnits": 698,
+      "v2WrongUnits": 14,
+      "euV1Silent": 52
+    },
+    "pdf-A": {
+      "label": "PDF invoice (Qty · Price · Amount)",
+      "v1": {
+        "correct": 0,
+        "caught": 0,
+        "silent": 2111,
+        "false_alarm": 0,
+        "held_with_doc": 0,
+        "n": 2111
+      },
+      "v2": {
+        "correct": 1391,
+        "caught": 351,
+        "silent": 2,
+        "false_alarm": 12,
+        "held_with_doc": 0,
+        "n": 1756
+      },
+      "docs": {
+        "total": 201,
+        "auto": 44,
+        "clean": 45,
+        "cleanAuto": 43
+      },
+      "v1WrongUnits": 2111,
+      "v2WrongUnits": 14,
+      "euV1Silent": 225
+    },
+    "pdf-B": {
+      "label": "PDF order (Price · Amount · Qty)",
+      "v1": {
+        "correct": 1253,
+        "caught": 0,
+        "silent": 858,
+        "false_alarm": 0,
+        "held_with_doc": 0,
+        "n": 2111
+      },
+      "v2": {
+        "correct": 1391,
+        "caught": 351,
+        "silent": 2,
+        "false_alarm": 12,
+        "held_with_doc": 0,
+        "n": 1756
+      },
+      "docs": {
+        "total": 201,
+        "auto": 44,
+        "clean": 45,
+        "cleanAuto": 43
+      },
+      "v1WrongUnits": 858,
+      "v2WrongUnits": 14,
+      "euV1Silent": 212
+    },
+    "pdf-C": {
+      "label": "PDF packing list (Qty · Unit · Weight)",
+      "v1": {
+        "correct": 0,
+        "caught": 0,
+        "silent": 2111,
+        "false_alarm": 0,
+        "held_with_doc": 0,
+        "n": 2111
+      },
+      "v2": {
+        "correct": 1391,
+        "caught": 351,
+        "silent": 2,
+        "false_alarm": 12,
+        "held_with_doc": 0,
+        "n": 1756
+      },
+      "docs": {
+        "total": 201,
+        "auto": 44,
+        "clean": 45,
+        "cleanAuto": 43
+      },
+      "v1WrongUnits": 2111,
+      "v2WrongUnits": 14,
+      "euV1Silent": 225
+    },
+    "pdf-A-nohdr": {
+      "label": "PDF invoice, no header row",
+      "v1": {
+        "correct": 0,
+        "caught": 0,
+        "silent": 2111,
+        "false_alarm": 0,
+        "held_with_doc": 0,
+        "n": 2111
+      },
+      "v2": {
+        "correct": 341,
+        "caught": 360,
+        "silent": 2,
+        "false_alarm": 12,
+        "held_with_doc": 1041,
+        "n": 1756
+      },
+      "docs": {
+        "total": 201,
+        "auto": 44,
+        "clean": 45,
+        "cleanAuto": 43
+      },
+      "v1WrongUnits": 2111,
+      "v2WrongUnits": 1055,
+      "euV1Silent": 225
+    }
+  },
+  "clean": {
+    "csv-min": {
+      "label": "CSV, quantity only",
+      "v1": {
+        "correct": 351,
+        "caught": 0,
+        "silent": 0,
+        "false_alarm": 0,
+        "held_with_doc": 0,
+        "n": 351
+      },
+      "v2": {
+        "correct": 329,
+        "caught": 0,
+        "silent": 0,
+        "false_alarm": 22,
+        "held_with_doc": 0,
+        "n": 351
+      },
+      "docs": {
+        "total": 34,
+        "auto": 22,
+        "clean": 34,
+        "cleanAuto": 22
+      },
+      "flaggedLines": 16,
+      "lines": 351,
+      "flagCodes": {
+        "MAGNITUDE_OUTLIER": 16
+      }
+    },
+    "csv-full": {
+      "label": "CSV with price, amount, weight",
+      "v1": {
+        "correct": 351,
+        "caught": 0,
+        "silent": 0,
+        "false_alarm": 0,
+        "held_with_doc": 0,
+        "n": 351
+      },
+      "v2": {
+        "correct": 345,
+        "caught": 0,
+        "silent": 0,
+        "false_alarm": 6,
+        "held_with_doc": 0,
+        "n": 351
+      },
+      "docs": {
+        "total": 34,
+        "auto": 33,
+        "clean": 34,
+        "cleanAuto": 33
+      },
+      "flaggedLines": 0,
+      "lines": 351,
+      "flagCodes": {}
+    },
+    "pdf-A": {
+      "label": "PDF invoice (Qty · Price · Amount)",
+      "v1": {
+        "correct": 0,
+        "caught": 0,
+        "silent": 351,
+        "false_alarm": 0,
+        "held_with_doc": 0,
+        "n": 351
+      },
+      "v2": {
+        "correct": 345,
+        "caught": 0,
+        "silent": 0,
+        "false_alarm": 6,
+        "held_with_doc": 0,
+        "n": 351
+      },
+      "docs": {
+        "total": 34,
+        "auto": 33,
+        "clean": 34,
+        "cleanAuto": 33
+      },
+      "flaggedLines": 0,
+      "lines": 351,
+      "flagCodes": {}
+    },
+    "pdf-B": {
+      "label": "PDF order (Price · Amount · Qty)",
+      "v1": {
+        "correct": 351,
+        "caught": 0,
+        "silent": 0,
+        "false_alarm": 0,
+        "held_with_doc": 0,
+        "n": 351
+      },
+      "v2": {
+        "correct": 345,
+        "caught": 0,
+        "silent": 0,
+        "false_alarm": 6,
+        "held_with_doc": 0,
+        "n": 351
+      },
+      "docs": {
+        "total": 34,
+        "auto": 33,
+        "clean": 34,
+        "cleanAuto": 33
+      },
+      "flaggedLines": 0,
+      "lines": 351,
+      "flagCodes": {}
+    },
+    "pdf-C": {
+      "label": "PDF packing list (Qty · Unit · Weight)",
+      "v1": {
+        "correct": 0,
+        "caught": 0,
+        "silent": 351,
+        "false_alarm": 0,
+        "held_with_doc": 0,
+        "n": 351
+      },
+      "v2": {
+        "correct": 345,
+        "caught": 0,
+        "silent": 0,
+        "false_alarm": 6,
+        "held_with_doc": 0,
+        "n": 351
+      },
+      "docs": {
+        "total": 34,
+        "auto": 33,
+        "clean": 34,
+        "cleanAuto": 33
+      },
+      "flaggedLines": 0,
+      "lines": 351,
+      "flagCodes": {}
+    },
+    "pdf-A-nohdr": {
+      "label": "PDF invoice, no header row",
+      "v1": {
+        "correct": 0,
+        "caught": 0,
+        "silent": 351,
+        "false_alarm": 0,
+        "held_with_doc": 0,
+        "n": 351
+      },
+      "v2": {
+        "correct": 254,
+        "caught": 2,
+        "silent": 0,
+        "false_alarm": 95,
+        "held_with_doc": 0,
+        "n": 351
+      },
+      "docs": {
+        "total": 34,
+        "auto": 31,
+        "clean": 34,
+        "cleanAuto": 31
+      },
+      "flaggedLines": 2,
+      "lines": 351,
+      "flagCodes": {
+        "QTY_COLUMN_UNCERTAIN": 2
+      }
+    }
+  },
+  "byError": {
+    "NEG": {
+      "n": 324,
+      "caughtLine": 324,
+      "caughtDocOnly": 0,
+      "silent": 0,
+      "blocked": 324,
+      "suggestOk": 270,
+      "silentByFmt": {}
+    },
+    "X10": {
+      "n": 276,
+      "caughtLine": 248,
+      "caughtDocOnly": 0,
+      "silent": 28,
+      "blocked": 230,
+      "suggestOk": 197,
+      "silentByFmt": {
+        "csv-min": 28
+      }
+    },
+    "DIV10": {
+      "n": 216,
+      "caughtLine": 192,
+      "caughtDocOnly": 0,
+      "silent": 24,
+      "blocked": 180,
+      "suggestOk": 146,
+      "silentByFmt": {
+        "csv-min": 24
+      }
+    },
+    "SEP": {
+      "n": 192,
+      "caughtLine": 192,
+      "caughtDocOnly": 0,
+      "silent": 0,
+      "blocked": 164,
+      "suggestOk": 191,
+      "silentByFmt": {}
+    },
+    "KG": {
+      "n": 270,
+      "caughtLine": 270,
+      "caughtDocOnly": 0,
+      "silent": 0,
+      "blocked": 268,
+      "suggestOk": 234,
+      "silentByFmt": {}
+    },
+    "BOX": {
+      "n": 138,
+      "caughtLine": 138,
+      "caughtDocOnly": 0,
+      "silent": 0,
+      "blocked": 138,
+      "suggestOk": 94,
+      "silentByFmt": {}
+    },
+    "SKUTYPO": {
+      "n": 348,
+      "caughtLine": 342,
+      "caughtDocOnly": 0,
+      "silent": 6,
+      "blocked": 342,
+      "suggestOk": 234,
+      "silentByFmt": {
+        "csv-min": 1,
+        "csv-full": 1,
+        "pdf-A": 1,
+        "pdf-B": 1,
+        "pdf-C": 1,
+        "pdf-A-nohdr": 1
+      }
+    },
+    "DUPLINE": {
+      "n": 348,
+      "caughtLine": 348,
+      "caughtDocOnly": 0,
+      "silent": 0,
+      "blocked": 0,
+      "suggestOk": 0,
+      "silentByFmt": {}
+    },
+    "DUPFILE": {
+      "n": 2244,
+      "caughtLine": 402,
+      "caughtDocOnly": 1842,
+      "silent": 0,
+      "blocked": 326,
+      "suggestOk": 285,
+      "silentByFmt": {}
+    }
+  },
+  "jitter": {
+    "A": [
+      {
+        "sigma": 0,
+        "n": 351,
+        "readOk": 351,
+        "silent": 0,
+        "flagged": 6,
+        "v1Units": 351,
+        "v1silent": 351
+      },
+      {
+        "sigma": 5,
+        "n": 351,
+        "readOk": 350,
+        "silent": 0,
+        "flagged": 7,
+        "v1Units": 351,
+        "v1silent": 351
+      },
+      {
+        "sigma": 10,
+        "n": 351,
+        "readOk": 338,
+        "silent": 0,
+        "flagged": 157,
+        "v1Units": 351,
+        "v1silent": 351
+      },
+      {
+        "sigma": 15,
+        "n": 351,
+        "readOk": 309,
+        "silent": 0,
+        "flagged": 232,
+        "v1Units": 351,
+        "v1silent": 351
+      },
+      {
+        "sigma": 20,
+        "n": 351,
+        "readOk": 299,
+        "silent": 0,
+        "flagged": 263,
+        "v1Units": 351,
+        "v1silent": 351
+      },
+      {
+        "sigma": 30,
+        "n": 351,
+        "readOk": 265,
+        "silent": 0,
+        "flagged": 276,
+        "v1Units": 351,
+        "v1silent": 351
+      },
+      {
+        "sigma": 40,
+        "n": 351,
+        "readOk": 213,
+        "silent": 0,
+        "flagged": 298,
+        "v1Units": 351,
+        "v1silent": 351
+      }
+    ],
+    "B": [
+      {
+        "sigma": 0,
+        "n": 351,
+        "readOk": 351,
+        "silent": 0,
+        "flagged": 6,
+        "v1Units": 351,
+        "v1silent": 0
+      },
+      {
+        "sigma": 5,
+        "n": 351,
+        "readOk": 351,
+        "silent": 0,
+        "flagged": 6,
+        "v1Units": 351,
+        "v1silent": 0
+      },
+      {
+        "sigma": 10,
+        "n": 351,
+        "readOk": 351,
+        "silent": 0,
+        "flagged": 107,
+        "v1Units": 351,
+        "v1silent": 0
+      },
+      {
+        "sigma": 15,
+        "n": 351,
+        "readOk": 328,
+        "silent": 0,
+        "flagged": 214,
+        "v1Units": 351,
+        "v1silent": 0
+      },
+      {
+        "sigma": 20,
+        "n": 351,
+        "readOk": 303,
+        "silent": 0,
+        "flagged": 239,
+        "v1Units": 351,
+        "v1silent": 0
+      },
+      {
+        "sigma": 30,
+        "n": 351,
+        "readOk": 256,
+        "silent": 0,
+        "flagged": 309,
+        "v1Units": 351,
+        "v1silent": 0
+      },
+      {
+        "sigma": 40,
+        "n": 351,
+        "readOk": 228,
+        "silent": 0,
+        "flagged": 332,
+        "v1Units": 351,
+        "v1silent": 0
+      }
+    ],
+    "C": [
+      {
+        "sigma": 0,
+        "n": 351,
+        "readOk": 351,
+        "silent": 0,
+        "flagged": 6,
+        "v1Units": 351,
+        "v1silent": 351
+      },
+      {
+        "sigma": 5,
+        "n": 351,
+        "readOk": 351,
+        "silent": 0,
+        "flagged": 6,
+        "v1Units": 351,
+        "v1silent": 351
+      },
+      {
+        "sigma": 10,
+        "n": 351,
+        "readOk": 343,
+        "silent": 0,
+        "flagged": 14,
+        "v1Units": 351,
+        "v1silent": 351
+      },
+      {
+        "sigma": 15,
+        "n": 351,
+        "readOk": 320,
+        "silent": 0,
+        "flagged": 37,
+        "v1Units": 351,
+        "v1silent": 351
+      },
+      {
+        "sigma": 20,
+        "n": 351,
+        "readOk": 305,
+        "silent": 0,
+        "flagged": 52,
+        "v1Units": 351,
+        "v1silent": 351
+      },
+      {
+        "sigma": 30,
+        "n": 351,
+        "readOk": 279,
+        "silent": 0,
+        "flagged": 78,
+        "v1Units": 351,
+        "v1silent": 351
+      },
+      {
+        "sigma": 40,
+        "n": 351,
+        "readOk": 228,
+        "silent": 0,
+        "flagged": 165,
+        "v1Units": 351,
+        "v1silent": 351
+      }
+    ]
+  },
+  "examples": [
+    {
+      "file": "sample_csv-full.csv",
+      "format": "CSV with price, amount, weight",
+      "lines": [
+        {
+          "printedSku": "BA325MT1GCM12X035F",
+          "err": "DUPLINE",
+          "truth": 48000,
+          "truthSku": "BA325MT1GCM12X035F",
+          "v1": 96000,
+          "v2": {
+            "qty": 48000,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM12X035F",
+          "err": "DUPLINE",
+          "truth": 0,
+          "truthSku": "BA325MT1GCM12X035F",
+          "v1": 96000,
+          "v2": {
+            "qty": 48000,
+            "status": "warn",
+            "issues": [
+              "BA325MT1GCM12X035F already appears on line 1 with the same quantity. Confirm both lines are real (a copy-paste repeat would double the order)."
+            ]
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM12X050F",
+          "err": null,
+          "truth": 8430,
+          "truthSku": "BA325MT1GCM12X050F",
+          "v1": 8430,
+          "v2": {
+            "qty": 8430,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM20X060F",
+          "err": "DIV10",
+          "truth": 160,
+          "truthSku": "BA325MT1GCM20X060F",
+          "v1": 16,
+          "v2": {
+            "qty": 16,
+            "status": "block",
+            "issues": [
+              "Quantity × unit price doesn't match the line amount: 16 × 0.4457 = 7.1312, but the document says 71.31. The amount implies 160.",
+              "Stated weight 36.1 kg doesn't fit 16 × 0.223 kg = 3.568 kg (off by ×10.12). A factor of exactly 10^1 usually means a zero was added or dropped; the weight implies about 162.",
+              "16 is about 750× less than usual for this SKU (typical ≈ 12,000, from 9 past lines)."
+            ]
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM20X090F",
+          "err": null,
+          "truth": 38750,
+          "truthSku": "BA325MT1GCM20X090F",
+          "v1": 38750,
+          "v2": {
+            "qty": 38750,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM24X080F",
+          "err": null,
+          "truth": 12940,
+          "truthSku": "BA325MT1GCM24X080F",
+          "v1": 12940,
+          "v2": {
+            "qty": 12940,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM24X110F",
+          "err": null,
+          "truth": 7500,
+          "truthSku": "BA325MT1GCM24X110F",
+          "v1": 7500,
+          "v2": {
+            "qty": 7500,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM36X140F",
+          "err": null,
+          "truth": 2250,
+          "truthSku": "BA325MT1GCM36X140F",
+          "v1": 2250,
+          "v2": {
+            "qty": 2250,
+            "status": "ok",
+            "issues": []
+          }
+        }
+      ]
+    },
+    {
+      "file": "sample_pdf-A.pdf",
+      "format": "PDF invoice (Qty · Price · Amount)",
+      "lines": [
+        {
+          "printedSku": "BA325MT1GCM12X035F",
+          "err": "DUPLINE",
+          "truth": 48000,
+          "truthSku": "BA325MT1GCM12X035F",
+          "v1": 9244.8,
+          "v2": {
+            "qty": 48000,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM12X035F",
+          "err": "DUPLINE",
+          "truth": 0,
+          "truthSku": "BA325MT1GCM12X035F",
+          "v1": 9244.8,
+          "v2": {
+            "qty": 48000,
+            "status": "warn",
+            "issues": [
+              "BA325MT1GCM12X035F already appears on line 1 with the same quantity. Confirm both lines are real (a copy-paste repeat would double the order)."
+            ]
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM12X050F",
+          "err": null,
+          "truth": 8430,
+          "truthSku": "BA325MT1GCM12X050F",
+          "v1": 1341.21,
+          "v2": {
+            "qty": 8430,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM20X060F",
+          "err": "DIV10",
+          "truth": 160,
+          "truthSku": "BA325MT1GCM20X060F",
+          "v1": 71.31,
+          "v2": {
+            "qty": 16,
+            "status": "block",
+            "issues": [
+              "Quantity × unit price doesn't match the line amount: 16 × 0.4457 = 7.1312, but the document says 71.31. The amount implies 160.",
+              "16 is about 750× less than usual for this SKU (typical ≈ 12,000, from 9 past lines)."
+            ]
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM20X090F",
+          "err": null,
+          "truth": 38750,
+          "truthSku": "BA325MT1GCM20X090F",
+          "v1": 27369.13,
+          "v2": {
+            "qty": 38750,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM24X080F",
+          "err": null,
+          "truth": 12940,
+          "truthSku": "BA325MT1GCM24X080F",
+          "v1": 11156.87,
+          "v2": {
+            "qty": 12940,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM24X110F",
+          "err": null,
+          "truth": 7500,
+          "truthSku": "BA325MT1GCM24X110F",
+          "v1": 7422,
+          "v2": {
+            "qty": 7500,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM36X140F",
+          "err": null,
+          "truth": 2250,
+          "truthSku": "BA325MT1GCM36X140F",
+          "v1": 7627.5,
+          "v2": {
+            "qty": 2250,
+            "status": "ok",
+            "issues": []
+          }
+        }
+      ]
+    },
+    {
+      "file": "sample_pdf-C.pdf",
+      "format": "PDF packing list (Qty · Unit · Weight)",
+      "lines": [
+        {
+          "printedSku": "BA325MT1GCM12X035F",
+          "err": "DUPLINE",
+          "truth": 48000,
+          "truthSku": "BA325MT1GCM12X035F",
+          "v1": 5591.6,
+          "v2": {
+            "qty": 48000,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM12X035F",
+          "err": "DUPLINE",
+          "truth": 0,
+          "truthSku": "BA325MT1GCM12X035F",
+          "v1": 5591.6,
+          "v2": {
+            "qty": 48000,
+            "status": "warn",
+            "issues": [
+              "BA325MT1GCM12X035F already appears on line 1 with the same quantity. Confirm both lines are real (a copy-paste repeat would double the order)."
+            ]
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM12X050F",
+          "err": null,
+          "truth": 8430,
+          "truthSku": "BA325MT1GCM12X050F",
+          "v1": 610.7,
+          "v2": {
+            "qty": 8430,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM20X060F",
+          "err": "DIV10",
+          "truth": 160,
+          "truthSku": "BA325MT1GCM20X060F",
+          "v1": 36.1,
+          "v2": {
+            "qty": 16,
+            "status": "block",
+            "issues": [
+              "Stated weight 36.1 kg doesn't fit 16 × 0.223 kg = 3.568 kg (off by ×10.12). A factor of exactly 10^1 usually means a zero was added or dropped; the weight implies about 162.",
+              "16 is about 750× less than usual for this SKU (typical ≈ 12,000, from 9 past lines)."
+            ]
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM20X090F",
+          "err": null,
+          "truth": 38750,
+          "truthSku": "BA325MT1GCM20X090F",
+          "v1": 11667.2,
+          "v2": {
+            "qty": 38750,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM24X080F",
+          "err": null,
+          "truth": 12940,
+          "truthSku": "BA325MT1GCM24X080F",
+          "v1": 5647,
+          "v2": {
+            "qty": 12940,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM24X110F",
+          "err": null,
+          "truth": 7500,
+          "truthSku": "BA325MT1GCM24X110F",
+          "v1": 4048.6,
+          "v2": {
+            "qty": 7500,
+            "status": "ok",
+            "issues": []
+          }
+        },
+        {
+          "printedSku": "BA325MT1GCM36X140F",
+          "err": null,
+          "truth": 2250,
+          "truthSku": "BA325MT1GCM36X140F",
+          "v1": 3534.5,
+          "v2": {
+            "qty": 2250,
+            "status": "ok",
+            "issues": []
+          }
+        }
+      ]
+    }
+  ],
+  "seconds": 62
+}
