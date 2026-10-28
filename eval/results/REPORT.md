@@ -60,13 +60,13 @@ Run on the 34 real documents with **no injected errors**:
 | Line pasted twice | 348 | 348 | 0 | 0 | 0% |
 | Whole file imported twice | 2,244 | 402 | 1,842 | 0 | 71% |
 
-**Where v2 still fails (honestly):**
+**Where v2 still fails:**
 - **×10 / ÷10 typos in a quantity-only CSV:** 52 got through, all of them in that one format (about 63% of the ×10/÷10 errors it contained). With no price or weight to cross-check, the only evidence is order history — and some SKUs legitimately vary 10× between orders.
 - **A typo that lands on another real SKU** with almost the same weight (BA325MT1GCM36X**140**F → …X**130**F, 1.55 vs 1.48 kg): nothing on the document contradicts it, in any format. This is the 1 silent case per format.
 
 ## Stress test: page-layout noise
 
-Like testing a model against ε-perturbations: every printed cell is shifted left or right at random by up to σ points, no injected errors. v1 ignores layout entirely (it always takes the last number), so it's flat — right on layout B, wrong on every line of A and C. v2's reading degrades as the noise grows, but **at every noise level its silent-error count stays at 0**: when columns blur, qty × price stops equalling the amount, or qty × unit weight stops matching the weight, and the line is held.
+For this test, every printed cell is shifted left or right at random by up to σ points, with no injected data errors. v1 ignores layout and always takes the last number, so it reads layout B correctly but gets every line wrong in layouts A and C. v2 reads fewer quantities correctly as the shifts grow, but **its silent-error count stays at 0**: when columns blur, the quantity no longer matches the printed amount or weight, and the line is held for review.
 
 ![noise](chart_noise_stress.png)
 

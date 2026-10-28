@@ -1,14 +1,14 @@
 # Inventory Control v2 — design notes
 
-**One sentence:** v1 made it impossible for stock to go *negative*; v2 makes it hard for a *wrong positive number* to get in without someone being asked.
+**Summary:** v1 prevented negative stock. v2 adds checks so questionable imported quantities are reviewed before they reach stock.
 
 ---
 
 ## 1. What was wrong with v1
 
-v1 was solid at the bottom. Every movement goes through one ledger function, the database's `CHECK` constraints reject negative stock, and the stock figures can be rebuilt from the ledger at any time. That is why the spreadsheet's **−31,250 bolts** (a real cell on the 1 July 2026 stock list, `AA325MT1GCM12X035F`, "ORDERED" column) can't happen in v1.
+Every movement in v1 goes through the ledger, database `CHECK` constraints reject negative stock, and stock figures can be rebuilt from the ledger. As a result, the **−31,250 bolts** in the 1 July 2026 stock list (`AA325MT1GCM12X035F`, "ORDERED" column) cannot be entered as negative stock.
 
-The weak point was the front door. The importer turned files into ledger rows in one step and trusted every number it was given. Reading the v1 code and testing it on realistic files turned up these failure modes. Each one produces a *positive, plausible-looking* number, so the negative-stock guard never fires:
+The importer wrote file data to the ledger in one step without checking the values. Reviewing and testing v1 exposed these failure modes. Each can produce a positive quantity, so the negative-stock checks do not catch it:
 
 | # | v1 behaviour (file → line in `imports.js` / `index.js`) | What actually happens |
 |---|---|---|
@@ -21,13 +21,11 @@ The weak point was the front door. The importer turned files into ledger rows in
 | 7 | Stock adjustment uses `Math.abs(qty)` | A typed "−500" with direction "up" becomes +500. |
 | 8 | `purchase_orders.status` allows `cancelled`, but no endpoint reaches it | A wrong PO can't be withdrawn; it leaves phantom on-order stock. |
 
-The thread connecting them is the point of the essay: **the system was confidently wrong.** It never said "I'm not sure."
+In each case, the importer recorded a value without flagging that it might be wrong.
 
 ## 2. The principle
 
-The research paper had the same lesson. The "robust" CNN was more accurate on clean digits, but under small perturbations it collapsed and kept answering, often "8". The model couldn't tell when it was wrong.
-
-v2 applies that to the importer:
+These checks guide the importer:
 
 1. **Never silently choose between two readings.** If `1.250` could mean 1.25 or 1,250, either other evidence in the file settles it, or a person does.
 2. **Cross-check with independent numbers on the same document.** Two sources agreeing is evidence; one number "looking unusual" is only a hint. Invoices already carry the check data: `qty × unit price = amount`, and `qty × unit weight ≈ shipping weight` (unit weights come from the Zoho item master).
@@ -50,7 +48,7 @@ v2 applies that to the importer:
 - **Commit.** Only resolved lines are posted, in one atomic transaction. Each ledger row carries `import_batch`, `import_line`, the decision, and the file's original value if it was changed. Any stock figure can therefore be traced to the exact line of the exact file it came from, and to who approved it.
 - **Undo.** A committed import can be reversed. A PO is cancelled, a sales order released, stock-ins reversed with `IMPORT_REVERSAL` entries. The ledger stays append-only: nothing is deleted, and the reversal is itself on the audit trail. If the stock has already been used, undo refuses rather than driving stock negative.
 
-*Why not just validate and reject the whole file?* Real files are mostly right. Rejecting 59 good lines because of 1 bad one makes people stop using the importer and go back to typing, which is the error source the system was built to remove.
+The importer reviews questionable lines individually instead of rejecting an entire file. This lets the user keep valid lines and resolve the ones that need attention.
 
 ### 3.2 Numbers that admit ambiguity (`server/numbers.js`)
 
@@ -119,7 +117,7 @@ The full report is in [`eval/results/REPORT.md`](eval/results/REPORT.md), and `n
 - **Formats.** Each document is rendered as 6 file formats.
 - **Errors.** 20% of lines get one injected error of 8 types, 20% of documents are in European number style, and 15% are imported twice. 5 seeds.
 - **Comparison.** The same files go through v1's original importer (kept unchanged in `eval/baseline_v1/`) and through v2.
-- **Stress test.** Every PDF cell is randomly shifted by up to σ points, the same idea as the ε sweep in the adversarial-attacks paper.
+- **Layout stress test.** Every PDF cell is randomly shifted by up to σ points to measure how layout changes affect quantity reading.
 
 ## 5. Bugs v2 found in itself (kept on record)
 
