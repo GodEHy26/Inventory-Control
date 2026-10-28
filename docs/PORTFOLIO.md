@@ -44,7 +44,7 @@ Each box is drawn from the PDF's own text coordinates. v2 finds the header row a
 **Title:** Stress test: does the system fail loudly or silently?
 
 **Caption:**
-My earlier research on adversarial attacks taught me that a model can look robust and still fail silently. So I tested the importer the same way: every printed cell was shifted at random by up to σ points, on all 34 real documents (351 lines). As σ grows, v2 reads fewer quantities correctly (100% → 61%), but **silent errors stay at 0** at every noise level. A misread quantity no longer satisfies quantity × price = amount, so it becomes a question instead of a wrong stock number.
+I tested how the importer handles changes in PDF layout by shifting each printed cell at random by up to σ points across 34 real documents (351 lines). As σ grows, v2 reads fewer quantities correctly (100% → 61%), but **silent errors stay at 0** at every noise level. When a quantity no longer matches the printed amount or weight, the line is held for review.
 
 ## 5 · Image: `fig2_tests_and_eval.png`
 
@@ -73,5 +73,4 @@ Link the repository (`git log` shows the build in stages, starting from v1). Poi
 ## Wording rules for every caption
 
 - Say "351 real order lines with **simulated** errors". Never say "it caught 351 real errors".
-- Use one figure for the robust-CNN accuracy across the portfolio and the essays.
-- What v2 still misses is stated in the report. Mentioning it shows you understand the limits.
+- Keep the remaining limitations in the report accurate when describing the results.
