@@ -190,3 +190,34 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   border-radius: 50%; background: var(--blue); }
 .filedrop { border: 2px dashed var(--line); border-radius: 8px; padding: 18px; text-align: center; color: var(--ink-2); }
 .filedrop.drag { border-color: var(--blue); background: #f2f6ff; }
+
+/* ---------- v2 Import Guard ----------
+   Three states, three colours, used the same way everywhere:
+   green = checked and consistent, amber = plausible but a person should look,
+   red = committing this would almost certainly book a wrong number. */
+.chip { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+.chip.ok { background: #e2f2e8; color: var(--green); }
+.chip.warn { background: #fdf1de; color: var(--amber); }
+.chip.block { background: #fbe7e5; color: var(--red); }
+.chip.muted { background: #eef1f3; color: var(--ink-2); }
+.badge { display: inline-block; min-width: 18px; padding: 0 5px; margin-left: 4px; border-radius: 9px;
+  background: var(--amber); color: #fff; font-size: 11px; text-align: center; line-height: 18px; }
+.guardbox { border-left: 4px solid var(--amber); background: #fdf6e7; }
+.stat.okc b { color: var(--green); } .stat.warnc b { color: var(--amber); } .stat.blockc b { color: var(--red); }
+.stat.attn { border-color: var(--amber); background: #fdf6e7; }
+.stat.click { cursor: pointer; }
+table.review td { vertical-align: top; }
+table.review tr.rejected td { opacity: .5; }
+table.review tr.rejected td:last-child { opacity: 1; }
+.issues { margin: 0; padding-left: 0; list-style: none; font-size: 12.5px; }
+.issues li { margin: 0 0 6px; padding-left: 10px; border-left: 3px solid var(--line); }
+.issues li.block { border-color: var(--red); }
+.issues li.warn { border-color: var(--amber); }
+.issues li.info { border-color: var(--green); color: var(--ink-2); }
+.issues .btn { margin-top: 3px; }
+.acts { white-space: nowrap; display: flex; flex-direction: column; gap: 4px; align-items: stretch; }
+.was { white-space: nowrap; font-size: 11px; color: var(--red); text-decoration: line-through; font-family: var(--mono); }
+.rawline { font-family: var(--mono); font-size: 11px; margin-top: 3px; max-width: 260px; overflow-wrap: anywhere; }
+.dec { display: block; font-size: 11px; color: var(--ink-2); margin-top: 3px; }
+.dec.overridden { color: var(--red); } .dec.edited { color: var(--blue-d); }
+.okbox { border-left: 4px solid var(--green); background: #eef8f1; }
