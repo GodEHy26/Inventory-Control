@@ -1,0 +1,35 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"DejaVu Sans","fontSize":"15px","primaryColor":"#ffffff","primaryBorderColor":"#333333","lineColor":"#555555","clusterBkg":"#fafafa","clusterBorder":"#bbbbbb"}}}%%
+flowchart LR
+  subgraph IN["1 · Input"]
+    A1["CSV / Excel<br/><small>SheetJS, raw text cells</small>"]
+    A2["PDF invoice / packing list<br/><small>pdf.js text + x,y coordinates</small>"]
+  end
+  subgraph PARSE["2 · Read (server/imports.js, pdfparse.js, numbers.js)"]
+    B1["Table from geometry<br/><small>header → column spans,<br/>numbers assigned by overlap</small>"]
+    B2["No header? arithmetic<br/><small>find a × b = c;<br/>else mark low-confidence</small>"]
+    B3["Number parser<br/><small>every reading of '1.250';<br/>file convention inferred;<br/>units kg / box kept</small>"]
+  end
+  subgraph CHECK["3 · Check every line (server/validate.js)"]
+    C1["Cross-checks on the document<br/><small>qty × unit price = amount<br/>(tolerance from printed decimals)<br/>qty × unit weight ≈ shipped weight</small>"]
+    C2["Item master<br/><small>unknown SKU → nearest by<br/>edit distance; unit conversion</small>"]
+    C3["History<br/><small>log-qty vs median / MAD;<br/>downgraded if cross-checks agree</small>"]
+    C4["Document level<br/><small>same file (SHA-256), same ref,<br/>near-duplicate order, printed total</small>"]
+  end
+  subgraph DEC["4 · Decide"]
+    D1(["OK → commit automatically"])
+    D2(["WARN → ask a person"])
+    D3(["BLOCK → hold + suggested fix"])
+  end
+  subgraph STORE["5 · Record (server/guard.js, ledger.js)"]
+    E1["Staging tables<br/><small>import_batches / import_lines:<br/>file value, issues, decision, who</small>"]
+    E2["Atomic commit to ledger<br/><small>append-only; CHECK on_hand ≥ 0;<br/>each row tagged batch + line</small>"]
+    E3["Undo = compensating entries<br/><small>nothing deleted; trace.js<br/>follows any figure to its file</small>"]
+  end
+  A1 --> B3
+  A2 --> B1 --> B3
+  A2 -.no header.-> B2 --> B3
+  B3 --> C1 & C2 & C3 & C4
+  C1 & C2 & C3 & C4 --> C5["line status =<br/>most severe finding"]
+  C5 --> D1 & D2 & D3
+  D1 --> E2
+  D2 & D3 --> E1 -->|reviewer accepts / edits / rejects| E2 --> E3
