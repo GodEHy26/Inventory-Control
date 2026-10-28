@@ -91,6 +91,32 @@ CREATE TABLE IF NOT EXISTS po_lines (
   sku TEXT NOT NULL REFERENCES items(sku), qty REAL NOT NULL CHECK(qty > 0),
   received_qty REAL NOT NULL DEFAULT 0, in_transit_qty REAL NOT NULL DEFAULT 0, heat_no TEXT
 );
+-- v2 Import Guard. A file is first STAGED: every line is parsed, checked
+-- and stored with its issues. Nothing touches the ledger until the batch is
+-- COMMITTED, and a committed batch can be UNDONE with compensating entries.
+CREATE TABLE IF NOT EXISTS import_batches (
+  id INTEGER PRIMARY KEY, kind TEXT NOT NULL CHECK(kind IN ('items','stock','so','po')),
+  filename TEXT, file_hash TEXT,
+  status TEXT NOT NULL DEFAULT 'staged' CHECK(status IN ('staged','committed','discarded','undone')),
+  options TEXT DEFAULT '{}', doc TEXT DEFAULT '{}', batch_issues TEXT DEFAULT '[]',
+  override_note TEXT, override_by TEXT, result TEXT DEFAULT '{}', note TEXT,
+  created_by TEXT, created_ts TEXT DEFAULT (datetime('now')),
+  committed_by TEXT, committed_ts TEXT, undone_by TEXT, undone_ts TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_batch_hash ON import_batches(file_hash);
+CREATE TABLE IF NOT EXISTS import_lines (
+  id INTEGER PRIMARY KEY, batch_id INTEGER NOT NULL REFERENCES import_batches(id),
+  line_no INTEGER, raw TEXT NOT NULL,            -- the row exactly as parsed (JSON, never changed)
+  row TEXT NOT NULL,                             -- the row as it stands after human edits (JSON)
+  sku TEXT, qty REAL,                            -- current values (after any edit)
+  orig_sku TEXT, orig_qty REAL,                  -- what the file said
+  status TEXT NOT NULL CHECK(status IN ('ok','warn','block')),
+  issues TEXT DEFAULT '[]', verified TEXT DEFAULT '[]',
+  decision TEXT NOT NULL DEFAULT 'pending'
+    CHECK(decision IN ('pending','accepted','edited','rejected','overridden')),
+  note TEXT, decided_by TEXT, decided_ts TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_lines_batch ON import_lines(batch_id);
 `);
 
 // Best-effort migrations for databases created by v1.

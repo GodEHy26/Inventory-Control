@@ -1,9 +1,48 @@
 # Inventory Control — Fastener Inventory & Manufacturing System
 
-Multi-warehouse inventory + lightweight manufacturing/BOM engine for an
-industrial fastener business, built to the spec in
+Multi-warehouse inventory and lightweight manufacturing/BOM system for an
+industrial fastener business. It follows the requirements in
 `fastener_inventory_system_spec.md`. Pre-loaded with the
 **INVENTORY STOCK LIST AS ON 1 JULY 2026** as the opening base.
+
+## v2 — Import Guard
+
+v1 prevented negative stock, but accepted numbers from imported files without
+checking them. On an invoice laid out *Qty · Unit price · Amount* it booked
+the Amount as the quantity. It read "1.250" as 1.25 bolts, and importing a
+file twice doubled every line. None of these produced a warning.
+
+v2 checks imported data before it reaches the ledger:
+
+- **Every line is cross-checked** against the document's own numbers
+  (qty × unit price = amount, qty × unit weight ≈ shipping weight), the item
+  master, order history and earlier imports.
+- **Anything doubtful is held, with a reason and usually a suggested fix.**
+  A person accepts, edits, rejects, or overrides it with a written reason. Clean
+  files still commit instantly.
+- **Every booked line traces back to its file, line and reviewer, and a
+  whole import can be undone.**
+- **PDFs are read as tables** (by column header) instead of "last number on
+  the line". Number formats, units (kg / boxes) and duplicates are handled
+  explicitly.
+
+**Evaluation on 351 real order lines with simulated errors** (full report:
+[`eval/results/REPORT.md`](eval/results/REPORT.md)): for CSVs with price/weight
+columns and for all three PDF layouts, v1 let 587–2,111 wrong lines into
+stock without a warning, and v2 let 2. On the clean real documents, 33 of 34
+committed with no human touch.
+
+Read **[DESIGN.md](DESIGN.md)** for what changed and why.
+
+```bash
+npm test                              # unit + end-to-end tests
+npm run eval                          # v1 vs v2 evaluation (needs python3 + matplotlib for the charts)
+node scripts/trace.js <SKU>           # where did this stock figure come from?
+node scripts/trace.js --batch <id>    # one import: file hash, every line, file value vs booked value
+```
+
+Figures and the demo video are in [`docs/figures/`](docs/figures). The scripts that
+produce them from real program output are in `docs/figures/src/`.
 
 **Live for everyone:** every stock movement is broadcast over WebSockets
 (Socket.IO) — all signed-in users see changes the moment anyone posts them,
@@ -25,6 +64,8 @@ with a toast showing who did what.
 | Heat-number genealogy | `lots` table; carried through receiving and cutting |
 | Cross-warehouse transfers (atomic out+in pair) | Item drawer → Transfer |
 | Incoming: PO → in transit → receive; packing-list paste import | Incoming tab |
+| **v2:** Import review (checks, suggestions, accept/edit/reject/override, commit, undo) | Imports tab |
+| **v2:** Cancel a PO (before receipt) | PO drawer |
 | Reports: low stock, assembly availability, exposure, mfg yield, per-SKU audit | Reports tab |
 | Roles (admin / sales / purchasing / warehouse) for up to 10 concurrent users | Sign-in; server-side permission checks |
 
@@ -67,16 +108,16 @@ Transfer lead-time in delivery promises, ATP against required dates
 model already supports all three.
 
 
-## What's new in v2
+## Release 1.1 — Zoho migration
 
-- **Stock starts at zero.** The item master (7,657 SKUs) and all 1,313 assembly BOMs come straight from your Zoho exports, complete with unit weights — but every quantity begins at 0. Build stock up through purchase orders, file imports, or adjustments.
-- **File imports everywhere.** Upload CSV / XLS / XLSX (and best-effort PDF for orders) to add items, stock, sales orders, or purchase orders. Column names are matched loosely, so Zoho exports work as-is. Every import section has a downloadable CSV/Excel template.
-- **"Reserved for orders".** Confirming a sales order moves stock into a reserved bank, per line, until shipped or cancelled.
-- **Partial everything.** Ship a sales order line in any partial quantity; mark any part of a PO line in transit; receive any part of a PO line — each with its own heat number. Statuses show `partial` automatically.
+- The item master (7,657 SKUs) and 1,313 assembly BOMs were imported from Zoho with unit weights. Quantities start at zero and can be added through purchase orders, file imports, or adjustments.
+- CSV, XLS, and XLSX files can be imported for items, stock, sales orders, and purchase orders. PDF import is available for orders. Each import section includes a downloadable CSV or Excel template.
+- Confirming a sales order reserves stock by line until it is shipped or cancelled.
+- Sales order lines and purchase order lines can be shipped, marked in transit, or received in partial quantities. Each receipt can include a heat number. The status updates to `partial` when appropriate.
 - **Open any purchase order** to see the components inside it, with ordered / in-transit / received per line and total shipment weight.
 - **SKU autocomplete.** Type a few characters in any SKU box and pick from a dropdown of matches.
-- **Totals first.** Stock views lead with the all-warehouse total; the per-warehouse split is one click away.
-- **Data flags.** The system continuously flags things that look wrong — assemblies with no BOM, SKUs that look like assemblies but aren't tagged, BOM components missing from the item master, missing weights — on the dashboard and in Reports.
+- Stock views show the all-warehouse total first, with the per-warehouse breakdown available from each row.
+- The dashboard and Reports flag assemblies without BOMs, SKUs that appear to be assemblies but are not tagged, BOM components missing from the item master, and missing weights.
 - **Unit weights & shipment weights.** Every item carries kg/unit (from Zoho); every SO and PO shows its total weight.
 - **Heat number traceability.** Heat numbers are captured at receipt (or import), travel through transfers and kit assembly, and are stamped onto shipments. Reports → "Heat number trace" shows the full purchase→sale genealogy.
 

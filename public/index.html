@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Inventory Control — Oriental Fasteners</title>
+<title>Inventory Control v2 — Oriental Fasteners</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div id="login" class="login hidden">
   <form id="loginForm" class="login-card">
-    <div class="brand"><span class="hex"></span>INVENTORY CONTROL</div>
+    <div class="brand"><span class="hex"></span>Inventory Control</div>
     <p class="muted">Multi-warehouse fastener stock, assemblies &amp; manufacturing</p>
     <label>Username <input name="username" autocomplete="username" required></label>
     <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
@@ -20,22 +20,32 @@
 
 <div id="app" class="hidden">
   <aside class="rail">
-    <div class="brand"><span class="hex"></span>INVENTORY<br>CONTROL</div>
+    <div class="brand"><span class="hex"></span>Inventory Control</div>
     <nav id="nav">
       <button data-tab="dashboard" class="active">Dashboard</button>
       <button data-tab="stock">Stock</button>
       <button data-tab="so">Sales orders</button>
       <button data-tab="po">Incoming</button>
+      <button data-tab="imports">Imports <span id="impBadge" class="badge hidden">0</span></button>
       <button data-tab="mfg">Manufacturing</button>
       <button data-tab="reports">Reports</button>
     </nav>
-    <div class="rail-foot">
-      <div id="whoami" class="muted"></div>
-      <button id="logout" class="btn ghost small">Sign out</button>
-      <div id="liveDot" class="live"><span></span> live</div>
-    </div>
   </aside>
-  <main id="main"></main>
+  <div class="content">
+    <header class="topbar">
+      <div id="crumb" class="crumb"></div>
+      <div class="top-right">
+        <div id="liveDot" class="live"><span></span> live</div>
+        <div id="whoami"></div>
+        <button id="logout" class="btn small">Sign out</button>
+      </div>
+    </header>
+    <main id="main"></main>
+    <footer class="foot">
+      <span><b>Inventory Control</b> &middot; Oriental Fasteners</span>
+      <span><b>Version</b> 2.0.0</span>
+    </footer>
+  </div>
 </div>
 
 <div id="drawer" class="drawer hidden"><div class="drawer-inner" id="drawerBody"></div></div>
