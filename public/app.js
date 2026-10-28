@@ -64,7 +64,12 @@ $('#nav').addEventListener('click', (e) => {
   $$('#nav button').forEach(x => x.classList.toggle('active', x === b));
   TAB = b.dataset.tab; if (TAB === 'imports') REVIEW = null; render();
 });
-function render() { ({ dashboard, stock, so, po, imports: importsTab, mfg, reports }[TAB] || dashboard)(); refreshBadge(); }
+const TAB_NAME = { dashboard: 'Dashboard', stock: 'Stock', so: 'Sales orders', po: 'Incoming', imports: 'Imports', mfg: 'Manufacturing', reports: 'Reports' };
+function render() {
+  const c = document.getElementById('crumb');
+  if (c) c.innerHTML = `<span>Home</span><span class="sep">/</span><b>${TAB_NAME[TAB] || 'Dashboard'}</b>`;
+  ({ dashboard, stock, so, po, imports: importsTab, mfg, reports }[TAB] || dashboard)(); refreshBadge();
+}
 function go(tab) { TAB = tab; $$('#nav button').forEach(x => x.classList.toggle('active', x.dataset.tab === tab)); render(); }
 async function refreshBadge() {
   try {
@@ -240,15 +245,14 @@ async function dashboard() {
   $('#main').innerHTML = `
     <h1>Dashboard</h1>
     <p class="sub">Every number is ledger-derived and can never go negative. Stock opened at zero — build it up through purchases, imports and adjustments.</p>
-    <div class="stats">
-      <div class="stat"><b>${fmt(b.counts.items)}</b><span>Active SKUs</span></div>
-      <div class="stat"><b>${fmt(b.counts.openSO)}</b><span>Open sales orders</span></div>
-      <div class="stat"><b>${fmt(b.counts.openPO)}</b><span>Incoming shipments</span></div>
-      <div class="stat"><b>${fmt(flags.length)}</b><span>Data flags</span></div>
-      <div class="stat ${b.counts.importsToReview ? 'attn click' : ''}" id="st_imp"><b>${fmt(b.counts.importsToReview)}</b><span>Imports to review</span></div>
+    <div class="tiles">
+      <div class="tile t1"><b>${fmt(b.counts.items)}</b><span>Active SKUs</span><a data-go="stock">Open stock</a></div>
+      <div class="tile t2"><b>${fmt(b.counts.openSO)}</b><span>Open sales orders</span><a data-go="so">Open sales orders</a></div>
+      <div class="tile t3"><b>${fmt(b.counts.openPO)}</b><span>Incoming shipments</span><a data-go="po">Open incoming</a></div>
+      <div class="tile t4"><b>${fmt(b.counts.importsToReview)}</b><span>Imports to review</span><a data-go="imports">Open imports</a></div>
     </div>
-    ${flags.length ? `<div class="panel flagbox"><h2 style="margin-top:0">⚑ Things that look off</h2>
-      <ul>${flags.slice(0, 10).map(f => `<li>${f.sku ? `<span class="sku">${esc(f.sku)}</span> ` : ''}${esc(f.text)}</li>`).join('')}</ul>
+    ${flags.length ? `<div class="panel flagbox"><h2 style="margin-top:0">Things that look off (${fmt(flags.length)})</h2>
+      <ul>${flags.slice(0, 10).map(f => `<li>${f.sku ? `<span class="sku">${esc(f.sku)}</span> ` : ''}${esc(f.sku && f.text.startsWith(f.sku) ? f.text.slice(f.sku.length).trim() : f.text)}</li>`).join('')}</ul>
       ${flags.length > 10 ? `<p class="muted">…and ${flags.length - 10} more (Reports → Data flags).</p>` : ''}</div>` : ''}
     ${low.length ? `<div class="panel"><h2 style="margin-top:0">Low stock (below reorder level)</h2>
       <table><thead><tr><th>SKU</th><th>Name</th><th class="num">On hand</th><th class="num">Min</th><th class="num">Incoming</th></tr></thead>
@@ -263,7 +267,7 @@ async function dashboard() {
         <td>${esc(t.warehouse_id)}</td><td class="muted">${esc(t.ref || '')}</td><td>${esc(t.user)}</td></tr>`).join('') ||
         '<tr><td colspan="7" class="muted">No activity yet.</td></tr>'}
       </tbody></table></div>`;
-  $('#st_imp')?.addEventListener('click', () => { if (b.counts.importsToReview) go('imports'); });
+  $$('#main .tile a[data-go]').forEach(a => a.addEventListener('click', () => go(a.dataset.go)));
 }
 
 /* ================= STOCK ================= */
@@ -384,7 +388,7 @@ async function itemDrawer(sku) {
       ${item.item_type === 'assembly' ? `<div class="panel"><h2 style="margin-top:0">Bill of materials</h2>
         ${bom.length ? `<table><thead><tr><th>Component</th><th></th><th class="num">Qty / set</th></tr></thead>
           <tbody>${bom.map(c => `<tr><td><span class="sku">${esc(c.sku)}</span></td><td>${esc(c.name)}</td><td class="num">${c.qty}</td></tr>`).join('')}</tbody></table>`
-          : '<p class="err">⚑ No BOM defined for this assembly — this item is on the data-flags list.</p>'}
+          : '<p class="err">No BOM defined for this assembly — this item is on the data-flags list.</p>'}
         <div class="toolbar" style="margin:12px 0 0">
           <button class="btn small" id="d_bom">Edit BOM</button>
           <button class="btn small" id="d_assemble">Assemble sets</button>
@@ -838,7 +842,7 @@ async function reviewPage(id) {
         <td><span class="sku">${esc(l.sku || '—')}</span>${changed(l.orig_sku, l.sku) ? `<div class="was">file: ${esc(l.orig_sku)}</div>` : ''}
             <div class="muted rawline">${esc(l.raw.text || [l.raw.qty_raw, l.raw.unit_raw, l.raw.price_raw && '@ ' + l.raw.price_raw, l.raw.amount_raw && '= ' + l.raw.amount_raw, l.raw.weight_raw && l.raw.weight_raw + ' kg'].filter(Boolean).join(' '))}</div></td>
         <td class="num"><b>${fmt(l.qty)}</b>${changed(l.orig_qty, l.qty) ? `<div class="was">file: ${fmt(l.orig_qty)}</div>` : ''}</td>
-        <td>${chip(l.decision === 'rejected' ? 'muted' : l.status, l.decision === 'rejected' ? 'rejected' : l.status === 'ok' ? (l.verified.length ? '✓ ' + l.verified.join(' + ') : 'ok') : l.status)}
+        <td>${chip(l.decision === 'rejected' ? 'muted' : l.status, l.decision === 'rejected' ? 'rejected' : l.status === 'ok' ? (l.verified.length ? 'checked: ' + l.verified.join(' + ') : 'ok') : l.status)}
             ${decisionTag(l)}${l.note ? `<div class="muted" style="font-size:11.5px">“${esc(l.note)}”</div>` : ''}</td>
         <td>${issueList(l.issues.filter(i => i.severity !== 'info' || l.status === 'ok'))}</td>
         ${staged ? `<td><div class="acts">
@@ -987,7 +991,7 @@ async function reports() {
     <h1>Reports</h1>
     <div class="toolbar">
       <select id="r_pick" style="width:auto">
-        <option value="flags">⚑ Data flags (things that look off)</option>
+        <option value="flags">Data flags (things that look off)</option>
         <option value="heat">Heat number trace (purchase → sale)</option>
         <option value="assembly">Assembly availability (finished + buildable)</option>
         <option value="low">Low stock / reorder</option>
