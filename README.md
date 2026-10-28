@@ -5,6 +5,45 @@ industrial fastener business, built to the spec in
 `fastener_inventory_system_spec.md`. Pre-loaded with the
 **INVENTORY STOCK LIST AS ON 1 JULY 2026** as the opening base.
 
+## v2 — Import Guard
+
+v1 made negative stock impossible. But it trusted every number an imported
+file handed it. On an invoice laid out *Qty · Unit price · Amount* it booked
+the Amount as the quantity. It read "1.250" as 1.25 bolts, and importing a
+file twice doubled every line. None of these produced a warning.
+
+v2 puts a check between the file and the ledger:
+
+- **Every line is cross-checked** against the document's own numbers
+  (qty × unit price = amount, qty × unit weight ≈ shipping weight), the item
+  master, order history and earlier imports.
+- **Anything doubtful is held, with a reason and usually a suggested fix.**
+  A person accepts, edits, rejects, or overrides it with a written reason. Clean
+  files still commit instantly.
+- **Every booked line traces back to its file, line and reviewer, and a
+  whole import can be undone.**
+- **PDFs are read as tables** (by column header) instead of "last number on
+  the line". Number formats, units (kg / boxes) and duplicates are handled
+  explicitly.
+
+**Result on the company's 351 real order lines with injected errors** (full report:
+[`eval/results/REPORT.md`](eval/results/REPORT.md)): for CSVs with price/weight
+columns and for all three PDF layouts, v1 let 587–2,111 wrong lines into
+stock without a warning, and v2 let 2. On the clean real documents, 33 of 34
+committed with no human touch.
+
+Read **[DESIGN.md](DESIGN.md)** for what changed and why.
+
+```bash
+npm test                              # unit + end-to-end tests
+npm run eval                          # v1 vs v2 evaluation (needs python3 + matplotlib for the charts)
+node scripts/trace.js <SKU>           # where did this stock figure come from?
+node scripts/trace.js --batch <id>    # one import: file hash, every line, file value vs booked value
+```
+
+Figures and the demo video are in [`docs/figures/`](docs/figures). The scripts that
+produce them from real program output are in `docs/figures/src/`.
+
 **Live for everyone:** every stock movement is broadcast over WebSockets
 (Socket.IO) — all signed-in users see changes the moment anyone posts them,
 with a toast showing who did what.
@@ -25,6 +64,8 @@ with a toast showing who did what.
 | Heat-number genealogy | `lots` table; carried through receiving and cutting |
 | Cross-warehouse transfers (atomic out+in pair) | Item drawer → Transfer |
 | Incoming: PO → in transit → receive; packing-list paste import | Incoming tab |
+| **v2:** Import review (checks, suggestions, accept/edit/reject/override, commit, undo) | Imports tab |
+| **v2:** Cancel a PO (before receipt) | PO drawer |
 | Reports: low stock, assembly availability, exposure, mfg yield, per-SKU audit | Reports tab |
 | Roles (admin / sales / purchasing / warehouse) for up to 10 concurrent users | Sign-in; server-side permission checks |
 
@@ -67,7 +108,7 @@ Transfer lead-time in delivery promises, ATP against required dates
 model already supports all three.
 
 
-## What's new in v2
+## Release 1.1 — Zoho migration (part of v1)
 
 - **Stock starts at zero.** The item master (7,657 SKUs) and all 1,313 assembly BOMs come straight from your Zoho exports, complete with unit weights — but every quantity begins at 0. Build stock up through purchase orders, file imports, or adjustments.
 - **File imports everywhere.** Upload CSV / XLS / XLSX (and best-effort PDF for orders) to add items, stock, sales orders, or purchase orders. Column names are matched loosely, so Zoho exports work as-is. Every import section has a downloadable CSV/Excel template.
