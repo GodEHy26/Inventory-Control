@@ -1,12 +1,14 @@
 /* Inventory Control v2 — SPA with live sync, SKU autocomplete, file imports,
-   partial ship/receive, weights, data-quality flags, heat traceability. */
+   partial ship/receive, weights, data-quality flags, heat traceability.
+   v2 adds the Import Guard: every file is checked line by line and anything
+   doubtful is held for review instead of going straight into stock. */
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fmt = (n) => (n == null ? '—' : Number(n).toLocaleString('en-US'));
 const kg = (n) => n ? Number(n).toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' kg' : '—';
 
-let ME = null, WAREHOUSES = [], TAB = 'dashboard';
+let ME = null, WAREHOUSES = [], TAB = 'dashboard', REVIEW = null;
 
 async function api(path, opts = {}) {
   const r = await fetch(path, {
@@ -15,7 +17,7 @@ async function api(path, opts = {}) {
     body: opts.body ? JSON.stringify(opts.body) : undefined,
   });
   const data = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(data.error || `Request failed (${r.status})`);
+  if (!r.ok) { const e = new Error(data.error || `Request failed (${r.status})`); e.status = r.status; e.data = data; throw e; }
   return data;
 }
 function toast(msg, cls = '', who = '') {
@@ -60,9 +62,22 @@ socket.on('sync', (m) => {
 $('#nav').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
   $$('#nav button').forEach(x => x.classList.toggle('active', x === b));
-  TAB = b.dataset.tab; render();
+  TAB = b.dataset.tab; if (TAB === 'imports') REVIEW = null; render();
 });
-function render() { ({ dashboard, stock, so, po, mfg, reports }[TAB] || dashboard)(); }
+const TAB_NAME = { dashboard: 'Dashboard', stock: 'Stock', so: 'Sales orders', po: 'Incoming', imports: 'Imports', mfg: 'Manufacturing', reports: 'Reports' };
+function render() {
+  const c = document.getElementById('crumb');
+  if (c) c.innerHTML = `<span>Home</span><span class="sep">/</span><b>${TAB_NAME[TAB] || 'Dashboard'}</b>`;
+  ({ dashboard, stock, so, po, imports: importsTab, mfg, reports }[TAB] || dashboard)(); refreshBadge();
+}
+function go(tab) { TAB = tab; $$('#nav button').forEach(x => x.classList.toggle('active', x.dataset.tab === tab)); render(); }
+async function refreshBadge() {
+  try {
+    const b = await api('/api/bootstrap');
+    const n = b.counts.importsToReview || 0;
+    const el = $('#impBadge'); if (el) { el.textContent = n; el.classList.toggle('hidden', !n); }
+  } catch {}
+}
 
 /* ---------- drawer ---------- */
 let drawerRefresh = null;
@@ -88,6 +103,27 @@ function ribbon(r) {
     ${seg(free, 'rh')}${seg(r.on_hold, 'rl')}${seg(r.in_transit, 'rt')}${seg(r.on_order, 'ro')}</div>`;
 }
 function typeTag(t) { return `<span class="tag ${t}">${t === 'raw' ? 'raw material' : t}</span>`; }
+function chip(status, text) { return `<span class="chip ${status}">${esc(text ?? status)}</span>`; }
+
+/* v2: forms post once; if the server answers 409 "needs_confirm", show its
+   warnings in place and let the person confirm or go back and fix. */
+async function postChecked(path, body, errEl) {
+  try { return await api(path, { method: 'POST', body }); }
+  catch (e) {
+    if (e.status !== 409 || !e.data?.needs_confirm) throw e;
+    return new Promise((resolve, reject) => {
+      errEl.innerHTML = `<div class="guardbox panel"><b>Check before saving</b><ul>${e.data.warnings.map(w =>
+        `<li>${w.line ? `Line ${w.line}: ` : ''}${esc(w.msg)}</li>`).join('')}</ul>
+        <button class="btn primary small" data-c="y">It's correct — save anyway</button>
+        <button class="btn small" data-c="n">Go back and fix</button></div>`;
+      errEl.querySelector('[data-c=y]').onclick = async () => {
+        errEl.innerHTML = '';
+        try { resolve(await api(path, { method: 'POST', body: { ...body, confirm: true } })); } catch (x) { reject(x); }
+      };
+      errEl.querySelector('[data-c=n]').onclick = () => { errEl.innerHTML = ''; reject(new Error('')); };
+    });
+  }
+}
 
 /* SKU autocomplete: attach to any input. Type ≥2 chars, pick from dropdown. */
 function attachSkuAC(input, onPick) {
@@ -147,8 +183,9 @@ function readFileB64(file) {
 /* Generic import dialog. kind: items|stock|so|po */
 function importDialog(kind, title, extraFieldsHtml = '', getOptions = () => ({})) {
   openDrawer(`<h1>${esc(title)}</h1>
-    <p class="sub">Accepted: CSV, XLS, XLSX${kind === 'so' || kind === 'po' ? ', PDF (best-effort)' : ''}.
-      Column names are matched loosely — Zoho exports work too.
+    <p class="sub">Accepted: CSV, XLS, XLSX${kind === 'so' || kind === 'po' ? ', PDF' : ''}.
+      Column names are matched loosely — Zoho exports work too. Every line is checked before anything is booked;
+      if the file has <b>Unit Price</b>, <b>Amount</b> or <b>Weight</b> columns, they're used to cross-check each quantity.
       <a href="/api/template/${kind}?fmt=csv" download>Download CSV template</a> ·
       <a href="/api/template/${kind}?fmt=xlsx" download>Download Excel template</a></p>
     <div class="panel">
@@ -158,6 +195,8 @@ function importDialog(kind, title, extraFieldsHtml = '', getOptions = () => ({})
       <p id="fd_name" class="muted"></p>
       <label style="display:flex;gap:6px;align-items:center;font-weight:600">
         <input type="checkbox" id="fd_auto" style="width:auto"> Create missing items automatically</label>
+      <label style="display:flex;gap:6px;align-items:center;font-weight:600">
+        <input type="checkbox" id="fd_rev" style="width:auto"> Always show me the review, even if every line is clean</label>
       <p class="err" id="fd_err"></p>
       <div id="fd_result"></div>
       <button class="btn primary" id="fd_go" disabled>Import</button>
@@ -175,17 +214,25 @@ function importDialog(kind, title, extraFieldsHtml = '', getOptions = () => ({})
       const data_b64 = await readFileB64(file);
       const r = await api('/api/import/file', { method: 'POST', body: {
         kind, filename: file.name, data_b64,
-        options: { ...getOptions(), autocreate: $('#fd_auto').checked } } });
-      let html = `<p style="color:var(--green)"><b>Imported.</b> ${r.created != null ? `${r.created} new, ${r.updated} updated items.` : ''}
-        ${r.lines != null ? `${r.lines} lines.` : ''} ${r.count != null ? `${r.count} stock lines.` : ''}
-        ${r.hint ? esc(r.hint) : ''}</p>`;
+        options: { ...getOptions(), autocreate: $('#fd_auto').checked, review: $('#fd_rev').checked } } });
+      let html;
+      if (r.committed) {
+        html = `<p style="color:var(--green)"><b>All ${r.counts.total} lines checked and committed.</b>
+          Every quantity passed the checks${kind === 'so' ? ' — open the draft and press Confirm to reserve stock' : ''}.</p>`;
+        toast('Import committed');
+      } else {
+        html = `<div class="panel guardbox"><b>Held for review — nothing has been booked yet.</b>
+          <p>${chip('block', r.counts.block + ' blocked')} ${chip('warn', r.counts.warn + ' to check')} ${chip('ok', r.counts.ok + ' clean')}</p>
+          <p class="muted">The importer found lines it can't vouch for. Review them, fix or reject what's wrong, then commit.</p>
+          <button class="btn primary" id="fd_review">Review now</button></div>`;
+        toast('Import held for review');
+      }
       if (r.note) html += `<p class="muted">${esc(r.note)}</p>`;
-      if (r.issues?.length) html += `<div class="panel flagbox"><b>${r.issues.length} rows skipped:</b>
-        <ul>${r.issues.slice(0, 12).map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
       $('#fd_result').innerHTML = html;
-      toast('Import complete');
+      $('#fd_review')?.addEventListener('click', () => { closeDrawer(); REVIEW = r.batch_id; go('imports'); });
     } catch (e) { $('#fd_err').textContent = e.message; }
     $('#fd_go').disabled = false; $('#fd_go').textContent = 'Import';
+    refreshBadge();
   });
 }
 
@@ -198,14 +245,14 @@ async function dashboard() {
   $('#main').innerHTML = `
     <h1>Dashboard</h1>
     <p class="sub">Every number is ledger-derived and can never go negative. Stock opened at zero — build it up through purchases, imports and adjustments.</p>
-    <div class="stats">
-      <div class="stat"><b>${fmt(b.counts.items)}</b><span>Active SKUs</span></div>
-      <div class="stat"><b>${fmt(b.counts.openSO)}</b><span>Open sales orders</span></div>
-      <div class="stat"><b>${fmt(b.counts.openPO)}</b><span>Incoming shipments</span></div>
-      <div class="stat"><b>${fmt(flags.length)}</b><span>Data flags</span></div>
+    <div class="tiles">
+      <div class="tile t1"><b>${fmt(b.counts.items)}</b><span>Active SKUs</span><a data-go="stock">Open stock</a></div>
+      <div class="tile t2"><b>${fmt(b.counts.openSO)}</b><span>Open sales orders</span><a data-go="so">Open sales orders</a></div>
+      <div class="tile t3"><b>${fmt(b.counts.openPO)}</b><span>Incoming shipments</span><a data-go="po">Open incoming</a></div>
+      <div class="tile t4"><b>${fmt(b.counts.importsToReview)}</b><span>Imports to review</span><a data-go="imports">Open imports</a></div>
     </div>
-    ${flags.length ? `<div class="panel flagbox"><h2 style="margin-top:0">⚑ Things that look off</h2>
-      <ul>${flags.slice(0, 10).map(f => `<li>${f.sku ? `<span class="sku">${esc(f.sku)}</span> ` : ''}${esc(f.text)}</li>`).join('')}</ul>
+    ${flags.length ? `<div class="panel flagbox"><h2 style="margin-top:0">Things that look off (${fmt(flags.length)})</h2>
+      <ul>${flags.slice(0, 10).map(f => `<li>${f.sku ? `<span class="sku">${esc(f.sku)}</span> ` : ''}${esc(f.sku && f.text.startsWith(f.sku) ? f.text.slice(f.sku.length).trim() : f.text)}</li>`).join('')}</ul>
       ${flags.length > 10 ? `<p class="muted">…and ${flags.length - 10} more (Reports → Data flags).</p>` : ''}</div>` : ''}
     ${low.length ? `<div class="panel"><h2 style="margin-top:0">Low stock (below reorder level)</h2>
       <table><thead><tr><th>SKU</th><th>Name</th><th class="num">On hand</th><th class="num">Min</th><th class="num">Incoming</th></tr></thead>
@@ -220,6 +267,7 @@ async function dashboard() {
         <td>${esc(t.warehouse_id)}</td><td class="muted">${esc(t.ref || '')}</td><td>${esc(t.user)}</td></tr>`).join('') ||
         '<tr><td colspan="7" class="muted">No activity yet.</td></tr>'}
       </tbody></table></div>`;
+  $$('#main .tile a[data-go]').forEach(a => a.addEventListener('click', () => go(a.dataset.go)));
 }
 
 /* ================= STOCK ================= */
@@ -340,7 +388,7 @@ async function itemDrawer(sku) {
       ${item.item_type === 'assembly' ? `<div class="panel"><h2 style="margin-top:0">Bill of materials</h2>
         ${bom.length ? `<table><thead><tr><th>Component</th><th></th><th class="num">Qty / set</th></tr></thead>
           <tbody>${bom.map(c => `<tr><td><span class="sku">${esc(c.sku)}</span></td><td>${esc(c.name)}</td><td class="num">${c.qty}</td></tr>`).join('')}</tbody></table>`
-          : '<p class="err">⚑ No BOM defined for this assembly — this item is on the data-flags list.</p>'}
+          : '<p class="err">No BOM defined for this assembly — this item is on the data-flags list.</p>'}
         <div class="toolbar" style="margin:12px 0 0">
           <button class="btn small" id="d_bom">Edit BOM</button>
           <button class="btn small" id="d_assemble">Assemble sets</button>
@@ -378,17 +426,17 @@ function adjustForm(item) {
       <label>Quantity <input id="a_qty" type="number" min="1"></label>
       <label>Heat no (if adding) <input id="a_heat"></label>
     </div>
-    <label>Reason <input id="a_reason" placeholder="e.g. physical count correction"></label>
+    <label>Reason (required) <input id="a_reason" placeholder="e.g. physical count correction"></label>
     <p class="err" id="a_err"></p>
     <button class="btn primary" id="a_go">Post adjustment</button></div>`);
   $('#a_go').addEventListener('click', async () => {
     try {
-      await api('/api/txn/adjust', { method: 'POST', body: {
+      await postChecked('/api/txn/adjust', {
         sku: item.sku, wh: $('#a_wh').value, qty: +$('#a_qty').value,
         direction: $('#a_dir').value, reason: $('#a_reason').value,
-        heat_no: $('#a_heat').value.trim(), ref: 'ADJ' } });
+        heat_no: $('#a_heat').value.trim(), ref: 'ADJ' }, $('#a_err'));
       toast('Adjustment posted'); itemDrawer(item.sku);
-    } catch (e) { $('#a_err').textContent = e.message; }
+    } catch (e) { if (e.message) $('#a_err').textContent = e.message; }
   });
 }
 function transferForm(item) {
@@ -512,12 +560,12 @@ function soForm() {
     .filter(l => l.sku && l.qty > 0);
   const create = async (confirm) => {
     try {
-      const r = await api('/api/so', { method: 'POST', body: {
+      const r = await postChecked('/api/so', {
         customer: $('#s_cust').value.trim(), ref: $('#s_ref').value,
-        required_date: $('#s_date').value, lines: collect() } });
+        required_date: $('#s_date').value, lines: collect() }, $('#s_err'));
       if (confirm) await api(`/api/so/${r.id}/confirm`, { method: 'POST' });
       toast(`Sales order #${r.id} ${confirm ? 'confirmed' : 'created'}`); soDrawer(r.id);
-    } catch (e) { $('#s_err').textContent = e.message; }
+    } catch (e) { if (e.message) $('#s_err').textContent = e.message; }
   };
   $('#s_save').addEventListener('click', () => create(false));
   $('#s_saveconf').addEventListener('click', () => create(true));
@@ -646,11 +694,11 @@ function poForm() {
       sku: $('.p_sku', r).value.trim(), qty: +$('.p_qty', r).value, heat_no: $('.p_heat', r).value.trim() }))
       .filter(l => l.sku && l.qty > 0);
     try {
-      await api('/api/po', { method: 'POST', body: {
+      await postChecked('/api/po', {
         supplier: $('#p_sup').value, ref: $('#p_ref').value, eta: $('#p_eta').value,
-        warehouse_id: $('#p_wh').value, lines } });
+        warehouse_id: $('#p_wh').value, lines }, $('#p_err'));
       toast('Purchase order created'); closeDrawer();
-    } catch (e) { $('#p_err').textContent = e.message; }
+    } catch (e) { if (e.message) $('#p_err').textContent = e.message; }
   });
 }
 async function poDrawer(id) {
@@ -679,6 +727,7 @@ async function poDrawer(id) {
         <button class="btn" id="po_disp_all">Mark ALL remaining in transit</button>
         <button class="btn primary" id="po_rec_part">Receive entered qty</button>
         <button class="btn primary" id="po_rec_all">Receive ALL remaining</button>
+        ${p.lines.every(l => !l.received_qty) ? '<button class="btn" id="po_cancel" style="margin-left:auto">Cancel PO</button>' : ''}
       </div>` : ''}
       <p class="err" id="po_err"></p></div>`, load);
     const gather = () => $$('.actqty').map(i => ({
@@ -701,8 +750,166 @@ async function poDrawer(id) {
       act('receive', { lines }, 'Received (partial)');
     });
     $('#po_rec_all')?.addEventListener('click', () => act('receive', {}, 'All remaining received'));
+    $('#po_cancel')?.addEventListener('click', () => {
+      $('#po_err').innerHTML = `<div class="guardbox panel">Cancel this PO? On-order and in-transit quantities are released;
+        the cancellation stays on the audit trail.<label>Reason <input id="po_cr"></label>
+        <button class="btn danger small" id="po_cy">Cancel PO</button></div>`;
+      $('#po_cy').onclick = () => act('cancel', { reason: $('#po_cr').value }, 'PO cancelled');
+    });
   };
   load();
+}
+
+/* ================= IMPORTS (v2 Import Guard) ================= */
+const ISSUE_HELP = {
+  QTY_NEGATIVE: 'Negative quantity', QTY_ZERO: 'Zero quantity', QTY_MISSING: 'No quantity',
+  QTY_FRACTIONAL: 'Not a whole number', QTY_AMBIGUOUS_FORMAT: 'Ambiguous number format',
+  QTY_COLUMN_UNCERTAIN: "Can't tell which number is the qty", ARITH_MISMATCH: 'Qty × price ≠ amount',
+  WEIGHT_MISMATCH: 'Weight doesn’t fit qty', MAGNITUDE_OUTLIER: 'Unusual size of order',
+  UNIT_MASS: 'Given in weight, not pieces', UNIT_PACK: 'Given in boxes/cartons', UNIT_LENGTH: 'Given as a length',
+  UNIT_UNKNOWN: 'Unknown unit', SKU_UNKNOWN: 'Unknown SKU', SKU_MISSING: 'No SKU', NEAR_DUPLICATE_SKU: 'Near-duplicate SKU',
+  DUPLICATE_LINE: 'SKU repeated', PHYSICAL_WEIGHT: 'Physically very large', SO_SHORT: 'Not enough stock',
+  DUPLICATE_FILE: 'Same file imported before', DUPLICATE_REF: 'Reference already used',
+  NEAR_DUPLICATE_DOC: 'Looks like an existing order', DOC_TOTAL_MISMATCH: 'Printed total doesn’t match',
+  DOC_TOTAL_OK: 'Printed total matches', LOCALE_CONFLICT: 'Mixed number formats', NO_LINES: 'No lines',
+  QTY_BY_ARITHMETIC: 'Qty found by arithmetic', QTY_BY_WEIGHT: 'Qty found by weight',
+  SKU_NORMALISED: 'SKU tidied', ITEM_UPDATE: 'Updates existing item',
+};
+const KIND_LABEL = { po: 'Purchase order', so: 'Sales order', stock: 'Stock', items: 'Items' };
+
+async function importsTab() {
+  if (REVIEW) return reviewPage(REVIEW);
+  const rows = await api('/api/import/batches');
+  $('#main').innerHTML = `
+    <h1>Imports</h1>
+    <p class="sub">Every uploaded file is checked line by line before anything reaches the stock figures.
+      Clean files go straight in; anything the system can't vouch for waits here for a person.</p>
+    <div class="panel"><table><thead><tr>
+      <th>#</th><th>File</th><th>Kind</th><th>Status</th><th class="num">Lines</th>
+      <th>Checks</th><th class="num">Changed by reviewer</th><th>By</th><th>When</th>
+    </tr></thead><tbody>
+    ${rows.map(b => `<tr class="click" data-id="${b.id}">
+      <td>${b.id}</td><td>${esc(b.filename)}${b.ref ? `<div class="muted" style="font-size:11.5px">${esc(b.ref)}</div>` : ''}</td>
+      <td>${esc(KIND_LABEL[b.kind] || b.kind)}</td><td>${chip(b.status === 'staged' ? 'warn' : b.status === 'committed' ? 'ok' : 'muted', b.status === 'staged' ? 'needs review' : b.status)}</td>
+      <td class="num">${b.lines}</td>
+      <td>${b.blocked ? chip('block', b.blocked + ' blocked') : ''} ${b.warned ? chip('warn', b.warned + ' to check') : ''}
+          ${!b.blocked && !b.warned ? chip('ok', 'all clean') : ''}</td>
+      <td class="num">${b.changed || ''}</td><td>${esc(b.created_by)}</td><td class="muted">${esc(b.created_ts)}</td></tr>`).join('') ||
+      '<tr><td colspan="9" class="muted">No imports yet. Upload a file from the Stock, Sales orders or Incoming tab.</td></tr>'}
+    </tbody></table></div>`;
+  $$('#main tr.click').forEach(tr => tr.addEventListener('click', () => { REVIEW = +tr.dataset.id; reviewPage(REVIEW); }));
+}
+
+function issueList(issues) {
+  return issues.length ? `<ul class="issues">${issues.map(i => `<li class="${i.severity}">
+      <b>${esc(ISSUE_HELP[i.code] || i.code)}</b> — ${esc(i.msg)}
+      ${i.suggest ? `<button class="btn small sug" data-sku="${esc(i.suggest.sku || '')}" data-qty="${i.suggest.qty ?? ''}">
+        Use ${i.suggest.sku ? esc(i.suggest.sku) : fmt(i.suggest.qty)}</button>` : ''}</li>`).join('')}</ul>` : '';
+}
+
+async function reviewPage(id) {
+  let v;
+  try { v = await api('/api/import/batch/' + id); }
+  catch (e) { REVIEW = null; toast(e.message, 'err'); return importsTab(); }
+  const b = v.batch, staged = b.status === 'staged';
+  const canOverride = ['admin', 'purchasing'].includes(ME.role);
+  const decisionTag = (l) => l.decision === 'pending' ? '' :
+    `<span class="dec ${l.decision}">${l.decision}${l.decided_by ? ' by ' + esc(l.decided_by) : ''}</span>`;
+  const changed = (a, bb) => a !== bb && a != null;
+  $('#main').innerHTML = `
+    <p><a href="#" id="rv_back">← All imports</a></p>
+    <h1>${esc(b.filename)} ${chip(staged ? 'warn' : b.status === 'committed' ? 'ok' : 'muted', staged ? 'needs review' : b.status)}</h1>
+    <p class="sub">${esc(KIND_LABEL[b.kind])} import #${b.id} · ${esc(b.created_by)} · ${esc(b.created_ts)}
+      ${b.options.ref ? ' · ref <b>' + esc(b.options.ref) + '</b>' : ''}${b.options.supplier ? ' · ' + esc(b.options.supplier) : ''}
+      ${b.doc.format === 'pdf' ? ` · PDF read ${b.doc.header ? 'by column header' : 'without a header'}` : ''}
+      ${b.doc.locale ? ` · numbers in ${b.doc.locale === 'eu' ? '1.234,5' : '1,234.5'} style` : ''}</p>
+    <div class="stats">
+      <div class="stat"><b>${v.counts.total}</b><span>Lines</span></div>
+      <div class="stat okc"><b>${v.counts.ok}</b><span>Clean</span></div>
+      <div class="stat warnc"><b>${v.counts.warn}</b><span>To check</span></div>
+      <div class="stat blockc"><b>${v.counts.block}</b><span>Blocked</span></div>
+      <div class="stat"><b>${v.counts.rejected}</b><span>Rejected</span></div>
+    </div>
+    ${b.batch_issues.length ? `<div class="panel ${b.batch_issues.some(i => i.severity !== 'info') ? 'guardbox' : 'okbox'}"><h2 style="margin-top:0">About the whole document</h2>${issueList(b.batch_issues)}
+      ${b.override_note ? `<p class="muted">Overridden by ${esc(b.override_by)}: “${esc(b.override_note)}”</p>` :
+        staged && b.batch_issues.some(i => i.severity === 'block') && canOverride
+          ? `<div class="formrow"><label>Override reason <input id="rv_bnote" placeholder="e.g. supplier re-sent a corrected invoice under the same number"></label>
+             <button class="btn small" id="rv_bover">Override</button></div>` : ''}</div>` : ''}
+    <div class="panel">
+      <table class="review"><thead><tr><th>#</th><th>SKU</th><th class="num">Qty</th><th>Check</th><th>What the system found</th>${staged ? '<th></th>' : ''}</tr></thead>
+      <tbody>${v.lines.map(l => `<tr class="rv ${l.decision === 'rejected' ? 'rejected' : ''}" data-lid="${l.id}">
+        <td class="muted">${l.line_no}</td>
+        <td><span class="sku">${esc(l.sku || '—')}</span>${changed(l.orig_sku, l.sku) ? `<div class="was">file: ${esc(l.orig_sku)}</div>` : ''}
+            <div class="muted rawline">${esc(l.raw.text || [l.raw.qty_raw, l.raw.unit_raw, l.raw.price_raw && '@ ' + l.raw.price_raw, l.raw.amount_raw && '= ' + l.raw.amount_raw, l.raw.weight_raw && l.raw.weight_raw + ' kg'].filter(Boolean).join(' '))}</div></td>
+        <td class="num"><b>${fmt(l.qty)}</b>${changed(l.orig_qty, l.qty) ? `<div class="was">file: ${fmt(l.orig_qty)}</div>` : ''}</td>
+        <td>${chip(l.decision === 'rejected' ? 'muted' : l.status, l.decision === 'rejected' ? 'rejected' : l.status === 'ok' ? (l.verified.length ? 'checked: ' + l.verified.join(' + ') : 'ok') : l.status)}
+            ${decisionTag(l)}${l.note ? `<div class="muted" style="font-size:11.5px">“${esc(l.note)}”</div>` : ''}</td>
+        <td>${issueList(l.issues.filter(i => i.severity !== 'info' || l.status === 'ok'))}</td>
+        ${staged ? `<td><div class="acts">
+          ${l.status === 'warn' && l.decision !== 'accepted' && l.decision !== 'rejected' ? '<button class="btn small" data-a="accept">Looks right</button>' : ''}
+          <button class="btn small" data-a="edit">Edit</button>
+          ${l.decision !== 'rejected' ? '<button class="btn small" data-a="reject">Reject</button>' : '<button class="btn small" data-a="reset">Undo reject</button>'}
+          ${l.status === 'block' && canOverride && l.decision !== 'overridden' && l.decision !== 'rejected' ? '<button class="btn small" data-a="override">Override…</button>' : ''}
+        </div></td>` : ''}</tr>`).join('')}</tbody></table>
+      ${b.note ? `<p class="muted">${esc(b.note)}</p>` : ''}
+    </div>
+    <div class="panel">
+      ${staged ? `
+        ${v.needsAck ? `<label style="display:flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="rv_ack" style="width:auto">
+          I have checked the document-level warnings above</label>` : ''}
+        ${v.blockers.length ? `<p class="muted">Not ready: ${esc(v.blockers.join(' '))}</p>` : '<p style="color:var(--green)"><b>Ready.</b> Only resolved lines will be booked; rejected lines are left out.</p>'}
+        <div class="toolbar"><button class="btn primary" id="rv_commit" ${v.ready ? '' : 'disabled'}>Commit ${v.counts.total - v.counts.rejected} line(s)</button>
+        <button class="btn" id="rv_discard">Discard whole file</button></div>`
+      : b.status === 'committed' ? `<p>Committed by ${esc(b.committed_by)} at ${esc(b.committed_ts)}.
+          ${b.result.po_id ? 'Created purchase order #' + b.result.po_id + '.' : ''}${b.result.so_id ? 'Created sales order #' + b.result.so_id + '.' : ''}
+          ${b.result.stock ? b.result.stock.length + ' stock line(s) booked.' : ''}</p>
+          <p class="muted">Every ledger row from this import carries its batch and line number, so it can be traced and reversed.</p>
+          <button class="btn" id="rv_undo">Undo this import</button>`
+      : `<p class="muted">This batch was ${esc(b.status)}${b.undone_by ? ' by ' + esc(b.undone_by) + ' at ' + esc(b.undone_ts) : ''}. Nothing from it is in the stock figures.</p>`}
+      <p class="err" id="rv_err"></p>
+    </div>`;
+  const err = (e) => { $('#rv_err').textContent = e.message; };
+  $('#rv_back').onclick = (e) => { e.preventDefault(); REVIEW = null; importsTab(); };
+  const act = async (lid, body) => {
+    try { await api(`/api/import/batch/${id}/line/${lid}`, { method: 'POST', body }); reviewPage(id); } catch (e) { err(e); }
+  };
+  $$('#main tr.rv').forEach(tr => {
+    const lid = +tr.dataset.lid;
+    const l = v.lines.find(x => x.id === lid);
+    tr.querySelectorAll('.sug').forEach(btn => btn.onclick = () => act(lid, { action: 'edit',
+      sku: btn.dataset.sku || undefined, qty: btn.dataset.qty !== '' ? +btn.dataset.qty : undefined, note: 'used suggested value' }));
+    tr.querySelectorAll('[data-a]').forEach(btn => btn.onclick = () => {
+      const a = btn.dataset.a;
+      if (a === 'accept' || a === 'reject' || a === 'reset') return act(lid, { action: a });
+      const cell = tr.querySelector('td:nth-child(5)');
+      if (a === 'edit') {
+        cell.innerHTML = `<div class="formrow"><label>SKU <input class="e_sku skuac" value="${esc(l.sku || '')}" autocomplete="off"></label>
+          <label>Qty (${esc('pieces')}) <input class="e_qty" type="number" value="${l.qty ?? ''}"></label></div>
+          <label>Note <input class="e_note" placeholder="what was wrong"></label>
+          <button class="btn primary small e_go">Save &amp; re-check</button>`;
+        wireSkuInputs(cell);
+        cell.querySelector('.e_go').onclick = () => act(lid, { action: 'edit', sku: cell.querySelector('.e_sku').value,
+          qty: cell.querySelector('.e_qty').value, note: cell.querySelector('.e_note').value });
+      } else if (a === 'override') {
+        cell.insertAdjacentHTML('beforeend', `<div class="formrow"><label>Why is the file right despite this? <input class="o_note"></label>
+          <button class="btn danger small o_go">Override</button></div>`);
+        cell.querySelector('.o_go').onclick = () => act(lid, { action: 'override', note: cell.querySelector('.o_note').value });
+      }
+    });
+  });
+  $('#rv_bover')?.addEventListener('click', async () => {
+    try { await api(`/api/import/batch/${id}/override`, { method: 'POST', body: { note: $('#rv_bnote').value } }); reviewPage(id); } catch (e) { err(e); }
+  });
+  $('#rv_commit')?.addEventListener('click', async () => {
+    try { await api(`/api/import/batch/${id}/commit`, { method: 'POST', body: { acknowledge: $('#rv_ack')?.checked } });
+      toast('Import committed'); reviewPage(id); refreshBadge(); } catch (e) { err(e); }
+  });
+  $('#rv_discard')?.addEventListener('click', async () => {
+    try { await api(`/api/import/batch/${id}/discard`, { method: 'POST' }); toast('Import discarded'); reviewPage(id); refreshBadge(); } catch (e) { err(e); }
+  });
+  $('#rv_undo')?.addEventListener('click', async () => {
+    try { await api(`/api/import/batch/${id}/undo`, { method: 'POST' }); toast('Import undone'); reviewPage(id); } catch (e) { err(e); }
+  });
 }
 
 /* ================= MANUFACTURING ================= */
@@ -784,7 +991,7 @@ async function reports() {
     <h1>Reports</h1>
     <div class="toolbar">
       <select id="r_pick" style="width:auto">
-        <option value="flags">⚑ Data flags (things that look off)</option>
+        <option value="flags">Data flags (things that look off)</option>
         <option value="heat">Heat number trace (purchase → sale)</option>
         <option value="assembly">Assembly availability (finished + buildable)</option>
         <option value="low">Low stock / reorder</option>
