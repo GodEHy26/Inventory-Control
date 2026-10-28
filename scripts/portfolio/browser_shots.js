@@ -8,8 +8,13 @@ const [out, url] = process.argv.slice(2);
 const samples = path.join(__dirname, '..', '..', 'eval', 'results', 'samples');
 
 (async () => {
-  const browser = await chromium.launch(process.env.USE_BUNDLED_CHROMIUM
-    ? {} : { channel: 'chrome', headless: false });
+  // The computer's own Chrome, or Edge if Chrome is not installed.
+  let browser;
+  if (process.env.USE_BUNDLED_CHROMIUM) browser = await chromium.launch();
+  else {
+    try { browser = await chromium.launch({ channel: 'chrome', headless: false }); }
+    catch { browser = await chromium.launch({ channel: 'msedge', headless: false }); }
+  }
   const page = await browser.newPage({ viewport: { width: 1400, height: 900 }, deviceScaleFactor: 2 });
   const shot = (name, full) => page.screenshot({ path: path.join(out, `app-${name}.png`), fullPage: !!full })
     .then(() => console.log(`saved portfolio-shots/app-${name}.png`));
