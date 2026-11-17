@@ -5,11 +5,11 @@ const fs = require('fs');
 const guard = require('../../../server/guard');
 const csv = [
   'Supplier,Ref,SKU,Qty,Unit,Unit Price,Amount,Weight KG',
-  'Example Supplier,INV-2041,BLT-M12X035,"48,000",pcs,0.0963,4622.40,2736',
-  'Example Supplier,INV-2041,BLT-M12X050,-8430,pcs,0.1591,1341.21,',
-  'Example Supplier,INV-2041,BLT-M20X60,1600,pcs,0.4457,713.12,',
-  'Example Supplier,INV-2041,BLT-M24X080,1294,pcs,0.8622,11156.87,',
-  'Example Supplier,INV-2041,BLT-M24X110,7500,pcs,0.9896,7422.00,',
+  'Example Supplier,INV-2041,BLT-M12X035,"40,000",pcs,0.095,3800.00,1880',
+  'Example Supplier,INV-2041,BLT-M12X050,-8000,pcs,0.16,1280.00,',
+  'Example Supplier,INV-2041,BLT-M20X60,1600,pcs,0.45,720.00,',
+  'Example Supplier,INV-2041,BLT-M24X080,1200,pcs,0.86,10320.00,',
+  'Example Supplier,INV-2041,BLT-M24X110,7500,pcs,0.99,7425.00,',
 ].join('\n') + '\n';
 (async () => {
   const b64 = Buffer.from(csv).toString('base64');
@@ -26,7 +26,7 @@ const csv = [
   guard.discard(id2, 'purchasing');
   // a wrong PO goes in clean, then turns out to be a test file and is undone
   const id3 = await guard.stage({ kind: 'po', filename: 'test_po.csv', options: { supplier: 'Test', ref: 'TEST-1' }, user: 'admin',
-    data_b64: Buffer.from('SKU,Qty,Unit Price,Amount\nBLT-M12X035,500,0.0963,48.15\n').toString('base64') });
+    data_b64: Buffer.from('SKU,Qty,Unit Price,Amount\nBLT-M12X035,500,0.095,47.50\n').toString('base64') });
   guard.commit(id3, 'admin'); guard.undo(id3, 'admin');
   fs.writeFileSync(process.argv[2] || '/dev/stdout', JSON.stringify({ id, id2, id3 }));
 })();

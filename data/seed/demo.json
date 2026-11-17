@@ -1,0 +1,5081 @@
+{
+ "generated": "2026-01-01",
+ "source": "Made-up demo catalog (scripts/make_demo_seed.js). Not real company data.",
+ "warehouses": [
+  {
+   "id": "WH-MAIN",
+   "name": "Main Warehouse",
+   "address": ""
+  },
+  {
+   "id": "WH-2",
+   "name": "Second Warehouse",
+   "address": ""
+  }
+ ],
+ "items": [
+  {
+   "sku": "NUT-M12",
+   "name": "Demo heavy hex nut M12",
+   "item_type": "part",
+   "category": "Nut",
+   "size": "M12",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.022,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "WSH-M12",
+   "name": "Demo hardened washer M12",
+   "item_type": "part",
+   "category": "Washer",
+   "size": "M12",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.01,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X030",
+   "name": "Demo heavy hex bolt M12X30",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.042,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X030",
+   "name": "Demo bolt-nut-washer set M12X30",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.074,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X035",
+   "name": "Demo heavy hex bolt M12X35",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X35",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.047,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X035",
+   "name": "Demo bolt-nut-washer set M12X35",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X35",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.079,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X040",
+   "name": "Demo heavy hex bolt M12X40",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X40",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.051,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X040",
+   "name": "Demo bolt-nut-washer set M12X40",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X40",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.083,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X045",
+   "name": "Demo heavy hex bolt M12X45",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X45",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.056,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X045",
+   "name": "Demo bolt-nut-washer set M12X45",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X45",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.088,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X050",
+   "name": "Demo heavy hex bolt M12X50",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X50",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.06,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X050",
+   "name": "Demo bolt-nut-washer set M12X50",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X50",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.092,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X055",
+   "name": "Demo heavy hex bolt M12X55",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X55",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.064,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X055",
+   "name": "Demo bolt-nut-washer set M12X55",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X55",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.096,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X060",
+   "name": "Demo heavy hex bolt M12X60",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X60",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.069,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X060",
+   "name": "Demo bolt-nut-washer set M12X60",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X60",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.101,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X065",
+   "name": "Demo heavy hex bolt M12X65",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X65",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.073,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X065",
+   "name": "Demo bolt-nut-washer set M12X65",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X65",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.105,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X070",
+   "name": "Demo heavy hex bolt M12X70",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X70",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.078,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X070",
+   "name": "Demo bolt-nut-washer set M12X70",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X70",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.11,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X075",
+   "name": "Demo heavy hex bolt M12X75",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X75",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.082,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X075",
+   "name": "Demo bolt-nut-washer set M12X75",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X75",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.114,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X080",
+   "name": "Demo heavy hex bolt M12X80",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X80",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.087,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X080",
+   "name": "Demo bolt-nut-washer set M12X80",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X80",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.119,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X090",
+   "name": "Demo heavy hex bolt M12X90",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X90",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.095,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X090",
+   "name": "Demo bolt-nut-washer set M12X90",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X90",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.127,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X100",
+   "name": "Demo heavy hex bolt M12X100",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X100",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.104,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X100",
+   "name": "Demo bolt-nut-washer set M12X100",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X100",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.136,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X110",
+   "name": "Demo heavy hex bolt M12X110",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X110",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.113,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X110",
+   "name": "Demo bolt-nut-washer set M12X110",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X110",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.145,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X120",
+   "name": "Demo heavy hex bolt M12X120",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X120",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.122,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X120",
+   "name": "Demo bolt-nut-washer set M12X120",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X120",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.154,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X130",
+   "name": "Demo heavy hex bolt M12X130",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X130",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.131,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X130",
+   "name": "Demo bolt-nut-washer set M12X130",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X130",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.163,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X140",
+   "name": "Demo heavy hex bolt M12X140",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X140",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.14,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X140",
+   "name": "Demo bolt-nut-washer set M12X140",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X140",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.172,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X150",
+   "name": "Demo heavy hex bolt M12X150",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X150",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.149,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X150",
+   "name": "Demo bolt-nut-washer set M12X150",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X150",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.181,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M12X160",
+   "name": "Demo heavy hex bolt M12X160",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M12X160",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.158,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M12X160",
+   "name": "Demo bolt-nut-washer set M12X160",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M12X160",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.19,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "NUT-M16",
+   "name": "Demo heavy hex nut M16",
+   "item_type": "part",
+   "category": "Nut",
+   "size": "M16",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.053,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "WSH-M16",
+   "name": "Demo hardened washer M16",
+   "item_type": "part",
+   "category": "Washer",
+   "size": "M16",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.023,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X030",
+   "name": "Demo heavy hex bolt M16X30",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.084,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X030",
+   "name": "Demo bolt-nut-washer set M16X30",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.16,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X035",
+   "name": "Demo heavy hex bolt M16X35",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X35",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.092,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X035",
+   "name": "Demo bolt-nut-washer set M16X35",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X35",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.168,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X040",
+   "name": "Demo heavy hex bolt M16X40",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X40",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.1,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X040",
+   "name": "Demo bolt-nut-washer set M16X40",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X40",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.176,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X045",
+   "name": "Demo heavy hex bolt M16X45",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X45",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.108,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X045",
+   "name": "Demo bolt-nut-washer set M16X45",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X45",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.184,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X050",
+   "name": "Demo heavy hex bolt M16X50",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X50",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.116,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X050",
+   "name": "Demo bolt-nut-washer set M16X50",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X50",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.192,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X055",
+   "name": "Demo heavy hex bolt M16X55",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X55",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.124,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X055",
+   "name": "Demo bolt-nut-washer set M16X55",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X55",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.2,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X060",
+   "name": "Demo heavy hex bolt M16X60",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X60",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.132,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X060",
+   "name": "Demo bolt-nut-washer set M16X60",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X60",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.208,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X065",
+   "name": "Demo heavy hex bolt M16X65",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X65",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.139,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X065",
+   "name": "Demo bolt-nut-washer set M16X65",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X65",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.215,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X070",
+   "name": "Demo heavy hex bolt M16X70",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X70",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.147,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X070",
+   "name": "Demo bolt-nut-washer set M16X70",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X70",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.223,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X075",
+   "name": "Demo heavy hex bolt M16X75",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X75",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.155,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X075",
+   "name": "Demo bolt-nut-washer set M16X75",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X75",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.231,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X080",
+   "name": "Demo heavy hex bolt M16X80",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X80",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.163,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X080",
+   "name": "Demo bolt-nut-washer set M16X80",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X80",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.239,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X090",
+   "name": "Demo heavy hex bolt M16X90",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X90",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.179,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X090",
+   "name": "Demo bolt-nut-washer set M16X90",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X90",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.255,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X100",
+   "name": "Demo heavy hex bolt M16X100",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X100",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.195,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X100",
+   "name": "Demo bolt-nut-washer set M16X100",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X100",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.271,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X110",
+   "name": "Demo heavy hex bolt M16X110",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X110",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.21,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X110",
+   "name": "Demo bolt-nut-washer set M16X110",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X110",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.286,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X120",
+   "name": "Demo heavy hex bolt M16X120",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X120",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.226,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X120",
+   "name": "Demo bolt-nut-washer set M16X120",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X120",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.302,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X130",
+   "name": "Demo heavy hex bolt M16X130",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X130",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.242,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X130",
+   "name": "Demo bolt-nut-washer set M16X130",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X130",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.318,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X140",
+   "name": "Demo heavy hex bolt M16X140",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X140",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.258,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X140",
+   "name": "Demo bolt-nut-washer set M16X140",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X140",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.334,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X150",
+   "name": "Demo heavy hex bolt M16X150",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X150",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.274,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X150",
+   "name": "Demo bolt-nut-washer set M16X150",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X150",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.35,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M16X160",
+   "name": "Demo heavy hex bolt M16X160",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M16X160",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.289,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M16X160",
+   "name": "Demo bolt-nut-washer set M16X160",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M16X160",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.365,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "NUT-M20",
+   "name": "Demo heavy hex nut M20",
+   "item_type": "part",
+   "category": "Nut",
+   "size": "M20",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.104,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "WSH-M20",
+   "name": "Demo hardened washer M20",
+   "item_type": "part",
+   "category": "Washer",
+   "size": "M20",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.044,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X030",
+   "name": "Demo heavy hex bolt M20X30",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.146,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X030",
+   "name": "Demo bolt-nut-washer set M20X30",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.294,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X035",
+   "name": "Demo heavy hex bolt M20X35",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X35",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.158,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X035",
+   "name": "Demo bolt-nut-washer set M20X35",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X35",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.306,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X040",
+   "name": "Demo heavy hex bolt M20X40",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X40",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.171,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X040",
+   "name": "Demo bolt-nut-washer set M20X40",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X40",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.319,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X045",
+   "name": "Demo heavy hex bolt M20X45",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X45",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.183,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X045",
+   "name": "Demo bolt-nut-washer set M20X45",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X45",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.331,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X050",
+   "name": "Demo heavy hex bolt M20X50",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X50",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.195,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X050",
+   "name": "Demo bolt-nut-washer set M20X50",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X50",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.343,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X055",
+   "name": "Demo heavy hex bolt M20X55",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X55",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.208,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X055",
+   "name": "Demo bolt-nut-washer set M20X55",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X55",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.356,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X060",
+   "name": "Demo heavy hex bolt M20X60",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X60",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.22,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X060",
+   "name": "Demo bolt-nut-washer set M20X60",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X60",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.368,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X065",
+   "name": "Demo heavy hex bolt M20X65",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X65",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.232,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X065",
+   "name": "Demo bolt-nut-washer set M20X65",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X65",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.38,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X070",
+   "name": "Demo heavy hex bolt M20X70",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X70",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.245,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X070",
+   "name": "Demo bolt-nut-washer set M20X70",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X70",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.393,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X075",
+   "name": "Demo heavy hex bolt M20X75",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X75",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.257,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X075",
+   "name": "Demo bolt-nut-washer set M20X75",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X75",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.405,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X080",
+   "name": "Demo heavy hex bolt M20X80",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X80",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.269,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X080",
+   "name": "Demo bolt-nut-washer set M20X80",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X80",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.417,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X090",
+   "name": "Demo heavy hex bolt M20X90",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X90",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.294,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X090",
+   "name": "Demo bolt-nut-washer set M20X90",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X90",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.442,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X100",
+   "name": "Demo heavy hex bolt M20X100",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X100",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.319,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X100",
+   "name": "Demo bolt-nut-washer set M20X100",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X100",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.467,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X110",
+   "name": "Demo heavy hex bolt M20X110",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X110",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.343,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X110",
+   "name": "Demo bolt-nut-washer set M20X110",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X110",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.491,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X120",
+   "name": "Demo heavy hex bolt M20X120",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X120",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.368,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X120",
+   "name": "Demo bolt-nut-washer set M20X120",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X120",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.516,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X130",
+   "name": "Demo heavy hex bolt M20X130",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X130",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.393,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X130",
+   "name": "Demo bolt-nut-washer set M20X130",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X130",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.541,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X140",
+   "name": "Demo heavy hex bolt M20X140",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X140",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.417,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X140",
+   "name": "Demo bolt-nut-washer set M20X140",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X140",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.565,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X150",
+   "name": "Demo heavy hex bolt M20X150",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X150",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.442,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X150",
+   "name": "Demo bolt-nut-washer set M20X150",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X150",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.59,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M20X160",
+   "name": "Demo heavy hex bolt M20X160",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M20X160",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.467,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M20X160",
+   "name": "Demo bolt-nut-washer set M20X160",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M20X160",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.615,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "NUT-M24",
+   "name": "Demo heavy hex nut M24",
+   "item_type": "part",
+   "category": "Nut",
+   "size": "M24",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.18,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "WSH-M24",
+   "name": "Demo hardened washer M24",
+   "item_type": "part",
+   "category": "Washer",
+   "size": "M24",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.076,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X030",
+   "name": "Demo heavy hex bolt M24X30",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.231,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X030",
+   "name": "Demo bolt-nut-washer set M24X30",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.487,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X035",
+   "name": "Demo heavy hex bolt M24X35",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X35",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.249,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X035",
+   "name": "Demo bolt-nut-washer set M24X35",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X35",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.505,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X040",
+   "name": "Demo heavy hex bolt M24X40",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X40",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.266,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X040",
+   "name": "Demo bolt-nut-washer set M24X40",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X40",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.522,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X045",
+   "name": "Demo heavy hex bolt M24X45",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X45",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.284,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X045",
+   "name": "Demo bolt-nut-washer set M24X45",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X45",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.54,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X050",
+   "name": "Demo heavy hex bolt M24X50",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X50",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.302,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X050",
+   "name": "Demo bolt-nut-washer set M24X50",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X50",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.558,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X055",
+   "name": "Demo heavy hex bolt M24X55",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X55",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.32,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X055",
+   "name": "Demo bolt-nut-washer set M24X55",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X55",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.576,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X060",
+   "name": "Demo heavy hex bolt M24X60",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X60",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.337,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X060",
+   "name": "Demo bolt-nut-washer set M24X60",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X60",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.593,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X065",
+   "name": "Demo heavy hex bolt M24X65",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X65",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.355,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X065",
+   "name": "Demo bolt-nut-washer set M24X65",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X65",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.611,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X070",
+   "name": "Demo heavy hex bolt M24X70",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X70",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.373,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X070",
+   "name": "Demo bolt-nut-washer set M24X70",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X70",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.629,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X075",
+   "name": "Demo heavy hex bolt M24X75",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X75",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.391,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X075",
+   "name": "Demo bolt-nut-washer set M24X75",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X75",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.647,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X080",
+   "name": "Demo heavy hex bolt M24X80",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X80",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.409,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X080",
+   "name": "Demo bolt-nut-washer set M24X80",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X80",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.665,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X090",
+   "name": "Demo heavy hex bolt M24X90",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X90",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.444,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X090",
+   "name": "Demo bolt-nut-washer set M24X90",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X90",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.7,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X100",
+   "name": "Demo heavy hex bolt M24X100",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X100",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.48,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X100",
+   "name": "Demo bolt-nut-washer set M24X100",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X100",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.736,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X110",
+   "name": "Demo heavy hex bolt M24X110",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X110",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.515,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X110",
+   "name": "Demo bolt-nut-washer set M24X110",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X110",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.771,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X120",
+   "name": "Demo heavy hex bolt M24X120",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X120",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.551,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X120",
+   "name": "Demo bolt-nut-washer set M24X120",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X120",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.807,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X130",
+   "name": "Demo heavy hex bolt M24X130",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X130",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.586,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X130",
+   "name": "Demo bolt-nut-washer set M24X130",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X130",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.842,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X140",
+   "name": "Demo heavy hex bolt M24X140",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X140",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.622,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X140",
+   "name": "Demo bolt-nut-washer set M24X140",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X140",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.878,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X150",
+   "name": "Demo heavy hex bolt M24X150",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X150",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.657,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X150",
+   "name": "Demo bolt-nut-washer set M24X150",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X150",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.913,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M24X160",
+   "name": "Demo heavy hex bolt M24X160",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M24X160",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.693,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M24X160",
+   "name": "Demo bolt-nut-washer set M24X160",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M24X160",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.949,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "NUT-M30",
+   "name": "Demo heavy hex nut M30",
+   "item_type": "part",
+   "category": "Nut",
+   "size": "M30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.351,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "WSH-M30",
+   "name": "Demo hardened washer M30",
+   "item_type": "part",
+   "category": "Washer",
+   "size": "M30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.148,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X030",
+   "name": "Demo heavy hex bolt M30X30",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.409,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X030",
+   "name": "Demo bolt-nut-washer set M30X30",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.908,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X035",
+   "name": "Demo heavy hex bolt M30X35",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X35",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.437,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X035",
+   "name": "Demo bolt-nut-washer set M30X35",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X35",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.936,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X040",
+   "name": "Demo heavy hex bolt M30X40",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X40",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.465,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X040",
+   "name": "Demo bolt-nut-washer set M30X40",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X40",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.964,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X045",
+   "name": "Demo heavy hex bolt M30X45",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X45",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.493,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X045",
+   "name": "Demo bolt-nut-washer set M30X45",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X45",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.992,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X050",
+   "name": "Demo heavy hex bolt M30X50",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X50",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.52,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X050",
+   "name": "Demo bolt-nut-washer set M30X50",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X50",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.019,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X055",
+   "name": "Demo heavy hex bolt M30X55",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X55",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.548,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X055",
+   "name": "Demo bolt-nut-washer set M30X55",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X55",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.047,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X060",
+   "name": "Demo heavy hex bolt M30X60",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X60",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.576,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X060",
+   "name": "Demo bolt-nut-washer set M30X60",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X60",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.075,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X065",
+   "name": "Demo heavy hex bolt M30X65",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X65",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.604,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X065",
+   "name": "Demo bolt-nut-washer set M30X65",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X65",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.103,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X070",
+   "name": "Demo heavy hex bolt M30X70",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X70",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.631,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X070",
+   "name": "Demo bolt-nut-washer set M30X70",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X70",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.13,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X075",
+   "name": "Demo heavy hex bolt M30X75",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X75",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.659,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X075",
+   "name": "Demo bolt-nut-washer set M30X75",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X75",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.158,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X080",
+   "name": "Demo heavy hex bolt M30X80",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X80",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.687,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X080",
+   "name": "Demo bolt-nut-washer set M30X80",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X80",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.186,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X090",
+   "name": "Demo heavy hex bolt M30X90",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X90",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.742,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X090",
+   "name": "Demo bolt-nut-washer set M30X90",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X90",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.241,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X100",
+   "name": "Demo heavy hex bolt M30X100",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X100",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.798,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X100",
+   "name": "Demo bolt-nut-washer set M30X100",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X100",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.297,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X110",
+   "name": "Demo heavy hex bolt M30X110",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X110",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.853,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X110",
+   "name": "Demo bolt-nut-washer set M30X110",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X110",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.352,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X120",
+   "name": "Demo heavy hex bolt M30X120",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X120",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.909,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X120",
+   "name": "Demo bolt-nut-washer set M30X120",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X120",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.408,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X130",
+   "name": "Demo heavy hex bolt M30X130",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X130",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.964,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X130",
+   "name": "Demo bolt-nut-washer set M30X130",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X130",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.463,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X140",
+   "name": "Demo heavy hex bolt M30X140",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X140",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.02,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X140",
+   "name": "Demo bolt-nut-washer set M30X140",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X140",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.519,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X150",
+   "name": "Demo heavy hex bolt M30X150",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X150",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.075,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X150",
+   "name": "Demo bolt-nut-washer set M30X150",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X150",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.574,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M30X160",
+   "name": "Demo heavy hex bolt M30X160",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M30X160",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.131,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M30X160",
+   "name": "Demo bolt-nut-washer set M30X160",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M30X160",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.63,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "NUT-M36",
+   "name": "Demo heavy hex nut M36",
+   "item_type": "part",
+   "category": "Nut",
+   "size": "M36",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.607,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "WSH-M36",
+   "name": "Demo hardened washer M36",
+   "item_type": "part",
+   "category": "Washer",
+   "size": "M36",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.257,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X030",
+   "name": "Demo heavy hex bolt M36X30",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.66,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X030",
+   "name": "Demo bolt-nut-washer set M36X30",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X30",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.524,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X035",
+   "name": "Demo heavy hex bolt M36X35",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X35",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.7,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X035",
+   "name": "Demo bolt-nut-washer set M36X35",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X35",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.564,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X040",
+   "name": "Demo heavy hex bolt M36X40",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X40",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.74,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X040",
+   "name": "Demo bolt-nut-washer set M36X40",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X40",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.604,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X045",
+   "name": "Demo heavy hex bolt M36X45",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X45",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.779,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X045",
+   "name": "Demo bolt-nut-washer set M36X45",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X45",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.643,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X050",
+   "name": "Demo heavy hex bolt M36X50",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X50",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.819,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X050",
+   "name": "Demo bolt-nut-washer set M36X50",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X50",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.683,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X055",
+   "name": "Demo heavy hex bolt M36X55",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X55",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.859,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X055",
+   "name": "Demo bolt-nut-washer set M36X55",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X55",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.723,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X060",
+   "name": "Demo heavy hex bolt M36X60",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X60",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.899,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X060",
+   "name": "Demo bolt-nut-washer set M36X60",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X60",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.763,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X065",
+   "name": "Demo heavy hex bolt M36X65",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X65",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.939,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X065",
+   "name": "Demo bolt-nut-washer set M36X65",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X65",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.803,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X070",
+   "name": "Demo heavy hex bolt M36X70",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X70",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 0.979,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X070",
+   "name": "Demo bolt-nut-washer set M36X70",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X70",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.843,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X075",
+   "name": "Demo heavy hex bolt M36X75",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X75",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.019,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X075",
+   "name": "Demo bolt-nut-washer set M36X75",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X75",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.883,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X080",
+   "name": "Demo heavy hex bolt M36X80",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X80",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.059,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X080",
+   "name": "Demo bolt-nut-washer set M36X80",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X80",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.923,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X090",
+   "name": "Demo heavy hex bolt M36X90",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X90",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.139,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X090",
+   "name": "Demo bolt-nut-washer set M36X90",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X90",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 2.003,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X100",
+   "name": "Demo heavy hex bolt M36X100",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X100",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.219,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X100",
+   "name": "Demo bolt-nut-washer set M36X100",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X100",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 2.083,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X110",
+   "name": "Demo heavy hex bolt M36X110",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X110",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.299,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X110",
+   "name": "Demo bolt-nut-washer set M36X110",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X110",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 2.163,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X120",
+   "name": "Demo heavy hex bolt M36X120",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X120",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.379,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X120",
+   "name": "Demo bolt-nut-washer set M36X120",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X120",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 2.243,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X130",
+   "name": "Demo heavy hex bolt M36X130",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X130",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.459,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X130",
+   "name": "Demo bolt-nut-washer set M36X130",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X130",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 2.323,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X140",
+   "name": "Demo heavy hex bolt M36X140",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X140",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.539,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X140",
+   "name": "Demo bolt-nut-washer set M36X140",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X140",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 2.403,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X150",
+   "name": "Demo heavy hex bolt M36X150",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X150",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.618,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X150",
+   "name": "Demo bolt-nut-washer set M36X150",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X150",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 2.482,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "BLT-M36X160",
+   "name": "Demo heavy hex bolt M36X160",
+   "item_type": "part",
+   "category": "Bolt",
+   "size": "M36X160",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 1.698,
+   "active": 1,
+   "source": "demo"
+  },
+  {
+   "sku": "SET-M36X160",
+   "name": "Demo bolt-nut-washer set M36X160",
+   "item_type": "assembly",
+   "category": "Bolt-Nut-Washer Set",
+   "size": "M36X160",
+   "grade": "DEMO",
+   "coating": "HDG",
+   "uom": "pcs",
+   "unit_weight": 2.562,
+   "active": 1,
+   "source": "demo"
+  }
+ ],
+ "stock": [],
+ "shipments": [],
+ "boms": [
+  {
+   "parent": "SET-M12X030",
+   "components": [
+    {
+     "sku": "BLT-M12X030",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X035",
+   "components": [
+    {
+     "sku": "BLT-M12X035",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X040",
+   "components": [
+    {
+     "sku": "BLT-M12X040",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X045",
+   "components": [
+    {
+     "sku": "BLT-M12X045",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X050",
+   "components": [
+    {
+     "sku": "BLT-M12X050",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X055",
+   "components": [
+    {
+     "sku": "BLT-M12X055",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X060",
+   "components": [
+    {
+     "sku": "BLT-M12X060",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X065",
+   "components": [
+    {
+     "sku": "BLT-M12X065",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X070",
+   "components": [
+    {
+     "sku": "BLT-M12X070",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X075",
+   "components": [
+    {
+     "sku": "BLT-M12X075",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X080",
+   "components": [
+    {
+     "sku": "BLT-M12X080",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X090",
+   "components": [
+    {
+     "sku": "BLT-M12X090",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X100",
+   "components": [
+    {
+     "sku": "BLT-M12X100",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X110",
+   "components": [
+    {
+     "sku": "BLT-M12X110",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X120",
+   "components": [
+    {
+     "sku": "BLT-M12X120",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X130",
+   "components": [
+    {
+     "sku": "BLT-M12X130",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X140",
+   "components": [
+    {
+     "sku": "BLT-M12X140",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X150",
+   "components": [
+    {
+     "sku": "BLT-M12X150",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M12X160",
+   "components": [
+    {
+     "sku": "BLT-M12X160",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M12",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M12",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X030",
+   "components": [
+    {
+     "sku": "BLT-M16X030",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X035",
+   "components": [
+    {
+     "sku": "BLT-M16X035",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X040",
+   "components": [
+    {
+     "sku": "BLT-M16X040",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X045",
+   "components": [
+    {
+     "sku": "BLT-M16X045",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X050",
+   "components": [
+    {
+     "sku": "BLT-M16X050",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X055",
+   "components": [
+    {
+     "sku": "BLT-M16X055",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X060",
+   "components": [
+    {
+     "sku": "BLT-M16X060",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X065",
+   "components": [
+    {
+     "sku": "BLT-M16X065",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X070",
+   "components": [
+    {
+     "sku": "BLT-M16X070",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X075",
+   "components": [
+    {
+     "sku": "BLT-M16X075",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X080",
+   "components": [
+    {
+     "sku": "BLT-M16X080",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X090",
+   "components": [
+    {
+     "sku": "BLT-M16X090",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X100",
+   "components": [
+    {
+     "sku": "BLT-M16X100",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X110",
+   "components": [
+    {
+     "sku": "BLT-M16X110",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X120",
+   "components": [
+    {
+     "sku": "BLT-M16X120",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X130",
+   "components": [
+    {
+     "sku": "BLT-M16X130",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X140",
+   "components": [
+    {
+     "sku": "BLT-M16X140",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X150",
+   "components": [
+    {
+     "sku": "BLT-M16X150",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M16X160",
+   "components": [
+    {
+     "sku": "BLT-M16X160",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M16",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M16",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X030",
+   "components": [
+    {
+     "sku": "BLT-M20X030",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X035",
+   "components": [
+    {
+     "sku": "BLT-M20X035",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X040",
+   "components": [
+    {
+     "sku": "BLT-M20X040",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X045",
+   "components": [
+    {
+     "sku": "BLT-M20X045",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X050",
+   "components": [
+    {
+     "sku": "BLT-M20X050",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X055",
+   "components": [
+    {
+     "sku": "BLT-M20X055",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X060",
+   "components": [
+    {
+     "sku": "BLT-M20X060",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X065",
+   "components": [
+    {
+     "sku": "BLT-M20X065",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X070",
+   "components": [
+    {
+     "sku": "BLT-M20X070",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X075",
+   "components": [
+    {
+     "sku": "BLT-M20X075",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X080",
+   "components": [
+    {
+     "sku": "BLT-M20X080",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X090",
+   "components": [
+    {
+     "sku": "BLT-M20X090",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X100",
+   "components": [
+    {
+     "sku": "BLT-M20X100",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X110",
+   "components": [
+    {
+     "sku": "BLT-M20X110",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X120",
+   "components": [
+    {
+     "sku": "BLT-M20X120",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X130",
+   "components": [
+    {
+     "sku": "BLT-M20X130",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X140",
+   "components": [
+    {
+     "sku": "BLT-M20X140",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X150",
+   "components": [
+    {
+     "sku": "BLT-M20X150",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M20X160",
+   "components": [
+    {
+     "sku": "BLT-M20X160",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M20",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M20",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X030",
+   "components": [
+    {
+     "sku": "BLT-M24X030",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X035",
+   "components": [
+    {
+     "sku": "BLT-M24X035",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X040",
+   "components": [
+    {
+     "sku": "BLT-M24X040",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X045",
+   "components": [
+    {
+     "sku": "BLT-M24X045",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X050",
+   "components": [
+    {
+     "sku": "BLT-M24X050",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X055",
+   "components": [
+    {
+     "sku": "BLT-M24X055",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X060",
+   "components": [
+    {
+     "sku": "BLT-M24X060",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X065",
+   "components": [
+    {
+     "sku": "BLT-M24X065",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X070",
+   "components": [
+    {
+     "sku": "BLT-M24X070",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X075",
+   "components": [
+    {
+     "sku": "BLT-M24X075",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X080",
+   "components": [
+    {
+     "sku": "BLT-M24X080",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X090",
+   "components": [
+    {
+     "sku": "BLT-M24X090",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X100",
+   "components": [
+    {
+     "sku": "BLT-M24X100",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X110",
+   "components": [
+    {
+     "sku": "BLT-M24X110",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X120",
+   "components": [
+    {
+     "sku": "BLT-M24X120",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X130",
+   "components": [
+    {
+     "sku": "BLT-M24X130",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X140",
+   "components": [
+    {
+     "sku": "BLT-M24X140",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X150",
+   "components": [
+    {
+     "sku": "BLT-M24X150",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M24X160",
+   "components": [
+    {
+     "sku": "BLT-M24X160",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M24",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M24",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X030",
+   "components": [
+    {
+     "sku": "BLT-M30X030",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X035",
+   "components": [
+    {
+     "sku": "BLT-M30X035",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X040",
+   "components": [
+    {
+     "sku": "BLT-M30X040",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X045",
+   "components": [
+    {
+     "sku": "BLT-M30X045",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X050",
+   "components": [
+    {
+     "sku": "BLT-M30X050",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X055",
+   "components": [
+    {
+     "sku": "BLT-M30X055",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X060",
+   "components": [
+    {
+     "sku": "BLT-M30X060",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X065",
+   "components": [
+    {
+     "sku": "BLT-M30X065",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X070",
+   "components": [
+    {
+     "sku": "BLT-M30X070",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X075",
+   "components": [
+    {
+     "sku": "BLT-M30X075",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X080",
+   "components": [
+    {
+     "sku": "BLT-M30X080",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X090",
+   "components": [
+    {
+     "sku": "BLT-M30X090",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X100",
+   "components": [
+    {
+     "sku": "BLT-M30X100",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X110",
+   "components": [
+    {
+     "sku": "BLT-M30X110",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X120",
+   "components": [
+    {
+     "sku": "BLT-M30X120",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X130",
+   "components": [
+    {
+     "sku": "BLT-M30X130",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X140",
+   "components": [
+    {
+     "sku": "BLT-M30X140",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X150",
+   "components": [
+    {
+     "sku": "BLT-M30X150",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M30X160",
+   "components": [
+    {
+     "sku": "BLT-M30X160",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M30",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M30",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X030",
+   "components": [
+    {
+     "sku": "BLT-M36X030",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X035",
+   "components": [
+    {
+     "sku": "BLT-M36X035",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X040",
+   "components": [
+    {
+     "sku": "BLT-M36X040",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X045",
+   "components": [
+    {
+     "sku": "BLT-M36X045",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X050",
+   "components": [
+    {
+     "sku": "BLT-M36X050",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X055",
+   "components": [
+    {
+     "sku": "BLT-M36X055",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X060",
+   "components": [
+    {
+     "sku": "BLT-M36X060",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X065",
+   "components": [
+    {
+     "sku": "BLT-M36X065",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X070",
+   "components": [
+    {
+     "sku": "BLT-M36X070",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X075",
+   "components": [
+    {
+     "sku": "BLT-M36X075",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X080",
+   "components": [
+    {
+     "sku": "BLT-M36X080",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X090",
+   "components": [
+    {
+     "sku": "BLT-M36X090",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X100",
+   "components": [
+    {
+     "sku": "BLT-M36X100",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X110",
+   "components": [
+    {
+     "sku": "BLT-M36X110",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X120",
+   "components": [
+    {
+     "sku": "BLT-M36X120",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X130",
+   "components": [
+    {
+     "sku": "BLT-M36X130",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X140",
+   "components": [
+    {
+     "sku": "BLT-M36X140",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X150",
+   "components": [
+    {
+     "sku": "BLT-M36X150",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  },
+  {
+   "parent": "SET-M36X160",
+   "components": [
+    {
+     "sku": "BLT-M36X160",
+     "qty": 1
+    },
+    {
+     "sku": "NUT-M36",
+     "qty": 1
+    },
+    {
+     "sku": "WSH-M36",
+     "qty": 1
+    }
+   ]
+  }
+ ],
+ "exceptions": []
+}

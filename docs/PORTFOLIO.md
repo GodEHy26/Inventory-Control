@@ -1,5 +1,7 @@
 # MIT Maker Portfolio — attachment plan
 
+> The video and the images that show real product codes (Figures 1, 3 and 4) are not in the public repository. Upload them from your own copies.
+
 MIT's rules for this kind of project (mitadmissions.org/apply/freshman/supplements):
 
 - **Code projects need two things:** the codebase (ideally version-controlled) and a working demo.

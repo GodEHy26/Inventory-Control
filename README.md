@@ -2,8 +2,12 @@
 
 Multi-warehouse inventory and lightweight manufacturing/BOM system for an
 industrial fastener business. It follows the requirements in
-`fastener_inventory_system_spec.md`. Pre-loaded with the
-**INVENTORY STOCK LIST AS ON 1 JULY 2026** as the opening base.
+`fastener_inventory_system_spec.md`.
+
+**No company data is in this repository.** It ships with a small made-up demo
+catalog (`data/seed/demo.json`). The company's real stock list and item master
+stay on the owner's computer in `data/private/`, which git ignores (see
+"Real data" below).
 
 ## v2 — Import Guard
 
@@ -41,8 +45,9 @@ node scripts/trace.js <SKU>           # where did this stock figure come from?
 node scripts/trace.js --batch <id>    # one import: file hash, every line, file value vs booked value
 ```
 
-Figures and the demo video are in [`docs/figures/`](docs/figures). The scripts that
-produce them from real program output are in `docs/figures/src/`.
+Figures are in [`docs/figures/`](docs/figures). The scripts that produce them from
+real program output are in `docs/figures/src/`. The demo video and the figures that
+show real product codes are kept out of this public repository.
 
 **Live for everyone:** every stock movement is broadcast over WebSockets
 (Socket.IO) — all signed-in users see changes the moment anyone posts them,
@@ -73,7 +78,7 @@ with a toast showing who did what.
 
 ```bash
 npm install
-npm run seed        # loads data/seed/seed.json (the 1 July 2026 stock list)
+npm run seed        # loads the made-up demo catalog (or the real one, if it is in data/private/)
 npm start           # http://localhost:3000
 ```
 
@@ -90,17 +95,24 @@ Any Node host works (Railway, Render, Fly.io, a small VPS). One instance +
 one SQLite file is plenty for ~10 users / ~560 invoices a year. Mount a
 persistent volume at `data/` so the database survives redeploys.
 
-## Data migration notes (1 July 2026 workbook)
+## Real data (kept private)
 
-- Main inventory column → **WH-MAIN**; the second-warehouse column → **WH-2**.
-- INTRANSIT / ORDERED columns → 34 incoming POs with ETA, supplier and
-  invoice ref, ready to Receive.
-- CLOSING columns are projections and were **not** used as on-hand.
-- SALES/PO columns and negative cells were skipped — all 141 judgement
-  calls are listed in `data/seed/seed.json → exceptions`. Fix any of them
-  with a Stock Adjustment (it stays on the audit trail).
-- Re-extract any time: `python3 scripts/extract_from_xlsx.py <xlsx> data/seed/seed.json`
-  (needs `openpyxl`), then `node scripts/seed.js` on a fresh database.
+The real data files are never committed. Put them in `data/private/`, which
+`.gitignore` excludes:
+
+- `data/private/seed.json`: the stock-list workbook, extracted with
+  `python3 scripts/extract_from_xlsx.py <xlsx> data/private/seed.json` (needs `openpyxl`).
+  Set `SECOND_WH_COLUMN` to a word from the second warehouse's column header.
+- `data/private/seed_v2.json`: the item master, from the Zoho exports (below).
+
+`npm run seed` uses `data/private/seed_v2.json` when it exists, and
+`npm run eval` needs both files. Without them, the app runs on the demo
+catalog and the evaluation explains what is missing.
+
+Workbook notes: the main inventory column becomes **WH-MAIN** and the second
+warehouse column **WH-2**. INTRANSIT / ORDERED columns become incoming purchase
+orders. CLOSING columns are projections and are **not** used as on-hand.
+SALES/PO columns and negative cells are skipped and listed under `exceptions`.
 
 ## Still open (from spec §10)
 Transfer lead-time in delivery promises, ATP against required dates
@@ -124,6 +136,6 @@ model already supports all three.
 ### Rebuilding the seed from Zoho exports
 
 ```
-python3 scripts/extract_from_zoho.py Item.xls Composite_Item.xls data/seed/seed.json data/seed/seed_v2.json
+python3 scripts/extract_from_zoho.py Item.xls Composite_Item.xls data/private/seed.json data/private/seed_v2.json
 npm run seed
 ```

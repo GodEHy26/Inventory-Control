@@ -1,3 +1,8 @@
 node_modules/
 data/inventory.db*
 portfolio-shots/
+
+# Real company data and anything generated from it: never commit
+data/private/
+eval/results/results.json
+eval/results/samples/

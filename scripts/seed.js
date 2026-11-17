@@ -1,12 +1,17 @@
-// Load data/seed/seed.json (produced by extract_from_xlsx.py) into the
-// database. Opening stock is posted through the ledger as OPENING_BALANCE
-// transactions, so even migrated stock is fully auditable.
+// Load a seed file into the database. Opening stock is posted through the
+// ledger as OPENING_BALANCE transactions, so even migrated stock is auditable.
+//
+// Default: the company's real catalog if it is in data/private/ (that folder is
+// never committed), otherwise the made-up demo catalog in data/seed/demo.json.
+//   node scripts/seed.js [path/to/seed.json] [--force]
 const path = require('path');
 const fs = require('fs');
 const db = require('../server/db');
 const ledger = require('../server/ledger');
 
-const seedPath = process.argv[2] || path.join(__dirname, '..', 'data', 'seed', 'seed_v2.json');
+const privateSeed = path.join(__dirname, '..', 'data', 'private', 'seed_v2.json');
+const argPath = process.argv.slice(2).find(a => !a.startsWith('--'));
+const seedPath = argPath || (fs.existsSync(privateSeed) ? privateSeed : path.join(__dirname, '..', 'data', 'seed', 'demo.json'));
 const seed = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
 
 const already = db.prepare("SELECT COUNT(*) c FROM transactions WHERE type='OPENING_BALANCE'").get().c;

@@ -14,9 +14,15 @@ const { execFileSync } = require('child_process');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(__dirname, 'results');
+const PRIV = process.env.PRIVATE_DATA_DIR || path.join(ROOT, 'data', 'private');
+if (!fs.existsSync(path.join(PRIV, 'seed.json')) || !fs.existsSync(path.join(PRIV, 'seed_v2.json'))) {
+  console.log("The evaluation runs on the company's real order data, which is kept out of the repository.\n" +
+    `Put seed.json and seed_v2.json in ${path.relative(process.cwd(), PRIV) || '.'}/ and run it again.`);
+  process.exit(1);
+}
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'ic-eval-'));
 process.env.DATA_DIR = TMP;
-execFileSync(process.execPath, [path.join(ROOT, 'scripts/seed.js')], { env: { ...process.env, DATA_DIR: TMP }, stdio: 'ignore' });
+execFileSync(process.execPath, [path.join(ROOT, 'scripts/seed.js'), path.join(PRIV, 'seed_v2.json')], { env: { ...process.env, DATA_DIR: TMP }, stdio: 'ignore' });
 
 // Silence pdf.js's canvas warnings (it only needs text, not rendering).
 const warn = console.warn, log = console.log;
@@ -28,7 +34,8 @@ const imports = require('../server/imports');
 const { validateDoc, nearestSkus } = require('../server/validate');
 const G = require('./generate');
 
-const seedData = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seed/seed.json'), 'utf8'));
+let seedData;
+try { seedData = G.load(); } catch (e) { log(e.message); process.exit(1); }
 const ALL_SKUS = [...G.ITEMS.keys()];
 const KNOWN = new Set(ALL_SKUS);
 

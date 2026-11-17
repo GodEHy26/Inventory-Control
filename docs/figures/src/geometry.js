@@ -9,6 +9,7 @@ require('child_process').execFileSync(process.execPath, [require('path').join(__
 const fs = require('fs');
 const path = require('path');
 const G = require('../../../eval/generate');
+const seed = G.load();   // real data from data/private/ (never committed)
 const imports = require('../../../server/imports');
 const { validateDoc } = require('../../../server/validate');
 
@@ -24,7 +25,6 @@ const { validateDoc } = require('../../../server/validate');
   const KNOWN = new Set(G.ITEMS.keys());
   const parsed = await imports.parseFile(path.basename(file), buf.toString('base64'),
     { kind: 'po', known: KNOWN, itemOf: s => G.ITEMS.get(s) });
-  const seed = require('../../../data/seed/seed.json');
   const ctx = { item: s => G.ITEMS.get(s) || null, skus: () => [...KNOWN],
     history: (s, r) => seed.shipments.filter(x => x.sku === s && x.ref !== r).map(x => x.qty), groupHistory: () => [] };
   const v = validateDoc({ kind: 'po', rows: parsed.rows, doc: { ...parsed.doc, kind: 'po' }, ctx });

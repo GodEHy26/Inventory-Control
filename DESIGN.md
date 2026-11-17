@@ -6,7 +6,7 @@
 
 ## 1. What was wrong with v1
 
-Every movement in v1 goes through the ledger, database `CHECK` constraints reject negative stock, and stock figures can be rebuilt from the ledger. As a result, the **−31,250 bolts** in the 1 July 2026 stock list (`SET-M12X035`, "ORDERED" column) cannot be entered as negative stock.
+Every movement in v1 goes through the ledger, database `CHECK` constraints reject negative stock, and stock figures can be rebuilt from the ledger. As a result, the **−31,250 bolts** in one cell of the July 2026 stock list (an "ORDERED" column) cannot be entered as negative stock.
 
 The importer wrote file data to the ledger in one step without checking the values. Reviewing and testing v1 exposed these failure modes. Each can produce a positive quantity, so the negative-stock checks do not catch it:
 

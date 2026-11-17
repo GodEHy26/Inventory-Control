@@ -444,7 +444,7 @@ function transferForm(item) {
     <p class="sub">Transfer-out and transfer-in post as one atomic pair. Heat lots travel with the goods.</p>
     <div class="panel"><div class="formrow">
       <label>From <select id="t_from">${whOptions('WH-MAIN')}</select></label>
-      <label>To <select id="t_to">${whOptions('WH-2')}</select></label>
+      <label>To <select id="t_to">${whOptions((WAREHOUSES[1] || WAREHOUSES[0] || {}).id)}</select></label>
       <label>Quantity <input id="t_qty" type="number" min="1"></label>
     </div>
     <label>Reference <input id="t_ref" placeholder="e.g. TRF-0012"></label>

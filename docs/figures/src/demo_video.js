@@ -3,7 +3,7 @@
 const { chromium } = require('playwright');
 const path = require('path');
 const DIR = process.argv[2];
-const PDF = path.join(__dirname, '../../../eval/results/samples/sample_pdf-A.pdf');
+const PDF = path.join(require('os').tmpdir(), 'ic-demo-invoice.pdf');   // made-up invoice, written below
 const wait = ms => new Promise(r => setTimeout(r, ms));
 
 async function caption(p, title, sub = '') {
@@ -31,6 +31,7 @@ async function importPdf(p) {
 }
 
 (async () => {
+  await require('../../../scripts/sample_invoice').write(PDF);
   const b = await chromium.launch();
   const mk = () => b.newContext({ viewport: { width: 1280, height: 760 }, recordVideo: { dir: DIR, size: { width: 1280, height: 760 } } });
 

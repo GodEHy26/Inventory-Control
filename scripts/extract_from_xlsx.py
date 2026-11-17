@@ -13,14 +13,16 @@ Produces a single seed.json containing:
 
 Column mapping (per the July 2026 workbook):
     - main inventory column   -> on_hand at WH-MAIN
-    - the second-warehouse column   -> on_hand at WH-2
+    - second-warehouse column -> on_hand at WH-2 (set SECOND_WH_COLUMN to a
+                                 word from that column's header)
     - INTRANSIT columns       -> incoming shipments, status in_transit
     - ORDERED columns         -> incoming shipments, status ordered
     - SALES / PO columns      -> ignored for stock (already reflected in
                                  physical counts); listed in exceptions
     - CLOSING                 -> reference only (projection, not on-hand)
 """
-import json, re, sys, datetime
+import json, os, re, sys, datetime
+SECOND_WH = os.environ.get("SECOND_WH_COLUMN", "").strip().upper()
 from openpyxl import load_workbook
 
 SHEETS = {
@@ -61,7 +63,7 @@ def is_num(v):
 def col_kind(h):
     H = clean(h).upper()
     if not H: return None
-    if "WH2" in H: return "wh2"
+    if SECOND_WH and SECOND_WH in H: return "wh2"
     if H.startswith("CLOSING"): return "closing"
     if "INTRANSIT" in H or "IN TRANSIT" in H or "NEWLY" in H: return "intransit"
     if H.startswith("ORDER") or "TO BE" in H or H == "BNW": return "ordered"

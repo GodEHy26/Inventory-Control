@@ -5,7 +5,9 @@ const path = require('path');
 let pw; try { pw = require('playwright-core'); } catch { pw = require('playwright'); }
 const { chromium } = pw;
 const [out, url] = process.argv.slice(2);
-const samples = path.join(__dirname, '..', '..', 'eval', 'results', 'samples');
+const os = require('os');
+const fs = require('fs');
+const { write: writeInvoice } = require('../sample_invoice');
 
 (async () => {
   // The computer's own Chrome, or Edge if Chrome is not installed.
@@ -33,11 +35,13 @@ const samples = path.join(__dirname, '..', '..', 'eval', 'results', 'samples');
   async function upload(file) {
     await page.click('#nav button[data-tab=po]');
     await page.click('#impPO');
-    await page.setInputFiles('#fd_input', path.join(samples, file));
+    await page.setInputFiles('#fd_input', file);
     await page.click('#fd_go');
     await page.waitForFunction(() => document.querySelector('#fd_go')?.textContent === 'Import', null, { timeout: 60000 });
   }
-  await upload('sample_pdf-A.pdf');
+  // A made-up supplier invoice with two planted errors (scripts/sample_invoice.js).
+  const invoice = await writeInvoice(path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'ic-inv-')), 'sample_invoice.pdf'));
+  await upload(invoice);
   await shot('2-upload-held');
   await page.click('#fd_review');
   await page.waitForSelector('#rv_back');
@@ -59,7 +63,7 @@ const samples = path.join(__dirname, '..', '..', 'eval', 'results', 'samples');
   await shot('5-incoming');
 
   // The same file again is blocked as a duplicate.
-  await upload('sample_pdf-A.pdf');
+  await upload(invoice);
   await page.click('#fd_review');
   await page.waitForSelector('#rv_back');
   await page.waitForTimeout(300); await quiet();

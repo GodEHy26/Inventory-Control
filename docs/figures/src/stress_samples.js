@@ -3,7 +3,7 @@ process.env.DATA_DIR = require('fs').mkdtempSync(require('os').tmpdir() + '/ic-s
 const quiet = f => (...a) => { if (!/polyfill|canvas|Require stack|^- /i.test(String(a[0]))) f(...a); };
 console.warn = quiet(console.warn); console.log = quiet(console.log);
 const fs = require('fs'), path = require('path');
-const G = require('../../../eval/generate'); const imports = require('../../../server/imports');
+const G = require('../../../eval/generate'); G.load(); const imports = require('../../../server/imports');
 const { validateDoc } = require('../../../server/validate');
 const out = process.argv[2]; const KNOWN = new Set(G.ITEMS.keys());
 const ctx = { item: s => G.ITEMS.get(s) || null, skus: () => [...KNOWN], history: () => [], groupHistory: () => [] };

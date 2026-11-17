@@ -18,9 +18,23 @@ const path = require('path');
 const PDFDocument = require('pdfkit');
 
 const ROOT = path.join(__dirname, '..');
-const seed = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seed/seed.json'), 'utf8'));
-const master = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seed/seed_v2.json'), 'utf8'));
-const ITEMS = new Map(master.items.map(i => [i.sku, i]));
+// The real stock list and item master are private and never committed. They
+// are read from data/private/ (or PRIVATE_DATA_DIR) only when load() is called.
+const PRIVATE_DIR = process.env.PRIVATE_DATA_DIR || path.join(ROOT, 'data', 'private');
+const ITEMS = new Map();
+let seed = null;
+function load() {
+  if (seed) return seed;
+  const a = path.join(PRIVATE_DIR, 'seed.json'), b = path.join(PRIVATE_DIR, 'seed_v2.json');
+  if (!fs.existsSync(a) || !fs.existsSync(b))
+    throw new Error(`The evaluation runs on the company's real order data, which is kept out of the repository.\n` +
+      `Put seed.json and seed_v2.json in ${path.relative(process.cwd(), PRIVATE_DIR) || '.'}/ and run it again.`);
+  seed = JSON.parse(fs.readFileSync(a, 'utf8'));
+  for (const i of JSON.parse(fs.readFileSync(b, 'utf8')).items) ITEMS.set(i.sku, i);
+  return seed;
+}
+// Use another catalog (e.g. the made-up demo one) to draw sample documents.
+function useItems(list) { ITEMS.clear(); for (const i of list) ITEMS.set(i.sku, i); }
 
 function rng(seedN) {
   let a = seedN >>> 0;
@@ -38,6 +52,7 @@ function priceOf(sku) {
 
 /** The 34 real documents, grouped exactly as v1's seed script groups them. */
 function realDocs() {
+  load();
   const g = new Map();
   for (const s of seed.shipments) {
     const key = `${s.ref}|${s.status}|${s.party}|${s.eta || ''}`;
@@ -195,4 +210,4 @@ function renderPdf(doc, printed, { layout, eu, header = true, jitter = 0, seedN 
   });
 }
 
-module.exports = { realDocs, inject, renderCsv, renderPdf, LAYOUTS, ITEMS, ERROR_TYPES, priceOf, rng, hashStr };
+module.exports = { load, useItems, realDocs, inject, renderCsv, renderPdf, LAYOUTS, ITEMS, ERROR_TYPES, priceOf, rng, hashStr };
